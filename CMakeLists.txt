@@ -18,3 +18,7 @@ endif(APPLE)
 
 find_package(Bison 3 REQUIRED)
 find_package(Elektra REQUIRED)
+
+set(SOURCE_DIRECTORY Source)
+set(SOURCE_FILES ${SOURCE_DIRECTORY}/yambi.cpp)
+add_executable(yambi ${SOURCE_FILES})
