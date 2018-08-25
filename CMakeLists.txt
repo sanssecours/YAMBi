@@ -17,3 +17,4 @@ if(APPLE)
 endif(APPLE)
 
 find_package(Bison 3 REQUIRED)
+find_package(Elektra REQUIRED)
