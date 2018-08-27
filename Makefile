@@ -4,7 +4,7 @@ export CXX := /usr/local/opt/llvm/bin/clang++
 export BUILD_DIRECTORY := Build
 export PROGRAM := yambi
 
-.PHONY: clean configure compile
+.PHONY: clean compile
 
 run: compile
 	@printf '🚗 Run\n\n'
