@@ -19,6 +19,22 @@ endif(APPLE)
 find_package(Bison 3 REQUIRED)
 find_package(Elektra REQUIRED)
 
-set(SOURCE_DIRECTORY Source)
-set(SOURCE_FILES ${SOURCE_DIRECTORY}/yambi.cpp)
+set(SOURCE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/Source)
+
+bison_target(YAMBi ${SOURCE_DIRECTORY}/parser.ypp
+             ${CMAKE_CURRENT_BINARY_DIR}/parser.cpp)
+
+if(NOT BISON_YAMBi_DEFINED)
+  message(fatal "Unable to generate parser")
+endif(NOT BISON_YAMBi_DEFINED)
+
+set(SOURCE_FILES
+    ${SOURCE_DIRECTORY}/lexer.hpp
+    ${SOURCE_DIRECTORY}/lexer.cpp
+    ${SOURCE_DIRECTORY}/driver.hpp
+    ${SOURCE_DIRECTORY}/driver.cpp
+    ${SOURCE_DIRECTORY}/yambi.cpp
+    ${BISON_YAMBi_OUTPUT_SOURCE}
+    ${BISON_YAMBi_OUTPUT_HEADER})
+include_directories(${CMAKE_CURRENT_BINARY_DIR} ${SOURCE_DIRECTORY})
 add_executable(yambi ${SOURCE_FILES})

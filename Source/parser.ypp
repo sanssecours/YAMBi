@@ -1,0 +1,44 @@
+%skeleton "lalr1.cc"
+%defines
+%define api.token.constructor
+%define api.value.type variant
+%define parse.assert
+%code requires
+{
+#include <string>
+class Driver;
+}
+// The parsing context.
+%param { Driver& driver }
+%locations
+%initial-action
+{
+  // Initialize the initial location.
+  @$.begin.filename = @$.end.filename = &driver.filename;
+};
+%define parse.trace
+%define parse.error verbose
+%code
+{
+# include "driver.hpp"
+}
+%define api.token.prefix {TOKEN_}
+%token
+  END  0  "end of file"
+;
+%token <std::string> SCALAR "scalar"
+
+%%
+
+yaml: %empty
+    | "scalar"
+    ;
+
+%%
+
+void
+yy::parser::error (const location_type& location,
+                   const std::string& message)
+{
+  driver.error (location, message);
+}
