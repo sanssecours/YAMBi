@@ -1,7 +1,6 @@
 #include "lexer.hpp"
 
 using yy::location;
-using yy::parser;
 
 Lexer::Lexer() {}
 Lexer::~Lexer() {}
