@@ -13,6 +13,7 @@ class Lexer {
   size_t position;
 
   size_t lookahead(size_t offset);
+  void consume();
 
 public:
   Lexer();

@@ -1,10 +1,12 @@
 #include <codecvt>
 #include <fstream>
 #include <sstream>
+#include <stdexcept>
 
 #include "lexer.hpp"
 
 using std::codecvt_utf8;
+using std::out_of_range;
 using std::stringstream;
 using std::wstring_convert;
 
@@ -18,6 +20,14 @@ size_t Lexer::lookahead(size_t offset) {
     return 0;
   }
   return input[static_cast<size_t>(position + offset - 1)];
+}
+
+void Lexer::consume() {
+  if (position + 1 >= input.size()) {
+    throw out_of_range("Unable to consume EOF");
+    return;
+  }
+  position++;
 }
 
 Lexer::Lexer(ifstream &stream) {
