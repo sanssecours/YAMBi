@@ -13,6 +13,13 @@ using yy::location;
 Lexer::Lexer() {}
 Lexer::~Lexer() {}
 
+size_t Lexer::lookahead(size_t offset) {
+  if (offset == 0 || position + offset > input.size()) {
+    return 0;
+  }
+  return input[static_cast<size_t>(position + offset - 1)];
+}
+
 Lexer::Lexer(ifstream &stream) {
   stringstream stringStream;
   stringStream << stream.rdbuf();

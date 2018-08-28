@@ -10,6 +10,9 @@ using yy::parser;
 
 class Lexer {
   u32string input;
+  size_t position;
+
+  size_t lookahead(size_t offset);
 
 public:
   Lexer();
