@@ -6,6 +6,8 @@ using std::cerr;
 using std::endl;
 using std::exception;
 
+using yy::parser;
+
 Driver::Driver() {}
 Driver::~Driver() {}
 
@@ -22,5 +24,7 @@ int Driver::parse(const string &filepath) {
     return EXIT_FAILURE;
   }
 
-  return EXIT_SUCCESS;
+  parser parser{*this};
+
+  return parser.parse();
 }
