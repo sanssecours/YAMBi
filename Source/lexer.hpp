@@ -6,10 +6,11 @@
 using yy::parser;
 
 class Lexer {
+public:
   Lexer();
   virtual ~Lexer();
 
-  parser::symbol_type yylex(Driver &driver);
+  parser::symbol_type nextToken();
 };
 
 #endif // LEXER_HPP

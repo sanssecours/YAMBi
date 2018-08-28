@@ -4,6 +4,7 @@
 #include <fstream>
 #include <string>
 
+#include "lexer.hpp"
 #include "parser.hpp"
 
 using std::ifstream;
@@ -12,14 +13,12 @@ using std::string;
 using yy::location;
 using yy::parser;
 
-// Declare generated parser function
-parser::symbol_type yylex(Driver &driver);
-
 class Driver {
   ifstream file;
 
 public:
   string filename;
+  Lexer lexer;
 
   Driver();
   virtual ~Driver();

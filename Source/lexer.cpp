@@ -6,7 +6,7 @@ using yy::parser;
 Lexer::Lexer() {}
 Lexer::~Lexer() {}
 
-parser::symbol_type yylex(Driver &driver __attribute__((unused))) {
+parser::symbol_type Lexer::nextToken() {
   location location;
   return parser::make_END(location);
 }
