@@ -11,11 +11,8 @@ using std::ifstream;
 using std::string;
 
 using yy::location;
-using yy::parser;
 
 class Driver {
-  ifstream file;
-
 public:
   string filename;
   Lexer lexer;

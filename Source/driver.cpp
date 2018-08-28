@@ -18,12 +18,13 @@ void Driver::error(const location &location, const string &message) {
 int Driver::parse(const string &filepath) {
   filename = filepath;
 
-  file = ifstream{filename};
-  if (!file.good()) {
+  ifstream input{filename};
+  if (!input.good()) {
     perror(string("Unable to open file “" + filename + "”").c_str());
     return EXIT_FAILURE;
   }
 
+  lexer = Lexer{input};
   parser parser{*this};
 
   return parser.parse();
