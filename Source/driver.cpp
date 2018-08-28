@@ -1,8 +1,10 @@
+#include <cerrno>
+
 #include "driver.hpp"
 
 using std::cerr;
 using std::endl;
-using std::ios_base;
+using std::exception;
 
 Driver::Driver() {}
 Driver::~Driver() {}
@@ -13,10 +15,12 @@ void Driver::error(const location &location, const string &message) {
 
 int Driver::parse(const string &filepath) {
   filename = filepath;
-  try {
-    ifstream{filename};
-  } catch (ios_base::failure &fail) {
-    cerr << "Unable to read file: " << fail.what() << endl;
+
+  file = ifstream{filename};
+  if (!file.good()) {
+    perror(string("Unable to open file “" + filename + "”").c_str());
+    return EXIT_FAILURE;
   }
-  return 0;
+
+  return EXIT_SUCCESS;
 }
