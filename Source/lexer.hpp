@@ -4,11 +4,12 @@
 #include "parser.hpp"
 
 using std::ifstream;
+using std::u32string;
 
 using yy::parser;
 
 class Lexer {
-  ifstream *input;
+  u32string input;
 
 public:
   Lexer();
