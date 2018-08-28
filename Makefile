@@ -2,13 +2,15 @@ export ASAN_OPTIONS := detect_leaks=1
 export CC := /usr/local/opt/llvm/bin/clang
 export CXX := /usr/local/opt/llvm/bin/clang++
 export BUILD_DIRECTORY := Build
+export INPUT_DIRECTORY := Input
 export PROGRAM := yambi
 
 .PHONY: clean compile
 
 run: compile
 	@printf '🚗 Run\n\n'
-	@$(BUILD_DIRECTORY)/$(PROGRAM)
+	@$(BUILD_DIRECTORY)/$(PROGRAM) \
+		$(INPUT_DIRECTORY)/"Plain Scalar>Word Chars.yaml"
 
 compile: $(BUILD_DIRECTORY)
 	@printf '🏗 Build\n\n'
