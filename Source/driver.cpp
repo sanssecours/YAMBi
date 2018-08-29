@@ -7,7 +7,6 @@
 
 using std::cerr;
 using std::endl;
-using std::exception;
 
 using yy::parser;
 
