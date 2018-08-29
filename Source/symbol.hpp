@@ -1,6 +1,8 @@
 #ifndef SYMBOL_HPP
 #define SYMBOL_HPP
 
+// -- Imports ------------------------------------------------------------------
+
 #include "parser.hpp"
 
 using std::string;
@@ -12,17 +14,39 @@ using symbol_type = parser::symbol_type;
 using token_type = parser::token_type;
 using token = parser::token;
 
+// -- Class --------------------------------------------------------------------
+
+/**
+ * This class acts as wrapper for `symbol_type`, which we can not use inside a
+ * queue, since its copy assignment operator is private.
+ */
 class Symbol {
-private:
+  /** This variable stores the location of this symbol. */
   location_type location;
+
+  /** This variable specifies the token type of this symbol. */
   token_type token;
+
+  /** This variable stores the actual value of the symbol. */
   string value;
 
 public:
+  /**
+   * This constructor creates a symbol from the given arguments.
+   *
+   * @param token This argument specifies the token type of the symbol.
+   * @param location This argument specifies the location of the symbol.
+   * @param value This variable stores the value of this symbol.
+   */
   Symbol(token_type const &token, location_type const &location,
          string const &value)
       : location{location}, token{token}, value{value} {}
 
+  /**
+   * This method returns the Bison symbol represented by this object.
+   *
+   * @return A symbol representing this object
+   */
   symbol_type get() {
     switch (token) {
     case token::TOKEN_END:
