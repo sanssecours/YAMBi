@@ -7,7 +7,6 @@
 #include "lexer.hpp"
 #include "parser.hpp"
 
-using std::ifstream;
 using std::string;
 
 using yy::location;
