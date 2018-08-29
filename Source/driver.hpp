@@ -1,7 +1,6 @@
 #ifndef DRIVER_HPP
 #define DRIVER_HPP
 
-#include <fstream>
 #include <string>
 
 #include "lexer.hpp"
