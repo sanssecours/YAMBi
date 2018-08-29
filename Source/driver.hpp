@@ -17,9 +17,6 @@ public:
   string filename;
   Lexer lexer;
 
-  Driver();
-  virtual ~Driver();
-
   int parse(const string &filename);
 
   // Error handling
