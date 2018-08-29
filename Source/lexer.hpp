@@ -10,10 +10,8 @@ using std::deque;
 using std::ifstream;
 using std::u32string;
 
-using yy::parser;
-
-using symbol_type = parser::symbol_type;
-using location_type = parser::location_type;
+using symbol_type = yy::parser::symbol_type;
+using location_type = yy::parser::location_type;
 
 class Lexer {
   u32string input;
