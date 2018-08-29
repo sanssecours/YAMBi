@@ -18,6 +18,7 @@ private:
   token_type token;
   string value;
 
+public:
   Symbol(token_type const &token, location_type const &location,
          string const &value)
       : location{location}, token{token}, value{value} {}
@@ -26,6 +27,8 @@ private:
     switch (token) {
     case token::TOKEN_END:
       return parser::make_END(location);
+    case token::TOKEN_STREAM_START:
+      return parser::make_STREAM_START(value, location);
     case token::TOKEN_SCALAR:
       return parser::make_SCALAR(value, location);
     }

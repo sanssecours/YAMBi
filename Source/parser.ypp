@@ -29,11 +29,12 @@ class Driver;
 %token
   END  0  "end of file"
 ;
+%token <std::string> STREAM_START
 %token <std::string> SCALAR "scalar"
 
 %%
 
-yaml: %empty
+yaml: STREAM_START
     | "scalar"
     ;
 

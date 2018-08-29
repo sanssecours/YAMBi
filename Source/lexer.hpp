@@ -12,9 +12,13 @@ using std::u32string;
 
 using yy::parser;
 
+using symbol_type = parser::symbol_type;
+using location_type = parser::location_type;
+
 class Lexer {
   u32string input;
   size_t position;
+  location_type location;
 
   /** This queue stores the list of tokens produced by the lexer. */
   // Unfortunately it is not possible to store `symbol_type` in a double ended
@@ -23,6 +27,8 @@ class Lexer {
 
   size_t lookahead(size_t offset);
   void consume();
+
+  void scanStart();
 
 public:
   Lexer();
