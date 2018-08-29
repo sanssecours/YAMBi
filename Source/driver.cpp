@@ -8,7 +8,7 @@ using std::exception;
 
 using yy::parser;
 
-void Driver::error(const location &location, const string &message) {
+void Driver::error(const location_type &location, const string &message) {
   cerr << location << ": " << message << '\n';
 }
 

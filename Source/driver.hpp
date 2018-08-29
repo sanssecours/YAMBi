@@ -9,7 +9,7 @@
 
 using std::string;
 
-using yy::location;
+using location_type = yy::parser::location_type;
 
 class Driver {
 public:
@@ -19,7 +19,7 @@ public:
   int parse(const string &filename);
 
   // Error handling
-  void error(const location &location, const string &message);
+  void error(const location_type &location, const string &message);
 };
 
 #endif // DRIVER_HPP
