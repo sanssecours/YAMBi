@@ -33,6 +33,7 @@ set(SOURCE_FILES
     ${SOURCE_DIRECTORY}/lexer.cpp
     ${SOURCE_DIRECTORY}/driver.hpp
     ${SOURCE_DIRECTORY}/driver.cpp
+    ${SOURCE_DIRECTORY}/symbol.hpp
     ${SOURCE_DIRECTORY}/yambi.cpp
     ${BISON_YAMBi_OUTPUT_SOURCE}
     ${BISON_YAMBi_OUTPUT_HEADER})
