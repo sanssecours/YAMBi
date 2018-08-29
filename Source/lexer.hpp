@@ -33,7 +33,7 @@ public:
   Lexer(ifstream &stream);
   virtual ~Lexer();
 
-  parser::symbol_type nextToken();
+  symbol_type nextToken();
 };
 
 #endif // LEXER_HPP
