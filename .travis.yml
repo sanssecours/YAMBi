@@ -5,6 +5,8 @@ matrix:
     - os: osx
       name: 🍏 Clang
       compiler: clang
+      env:
+        - ASAN_OPTIONS=detect_leaks=1
 
     - os: osx
       name: 🍏 GCC
