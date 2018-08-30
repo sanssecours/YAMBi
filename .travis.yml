@@ -13,5 +13,12 @@ before_install:
       brew install ninja
     fi
 
+before_script:
+  - mkdir -p Build
+  - cd Build
+  - printf '🤖 Configure\n\n'
+  - cmake -G Ninja -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ..
+  - cd ..
+
 script:
   - make
