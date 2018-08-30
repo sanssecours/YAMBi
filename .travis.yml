@@ -11,6 +11,8 @@ before_install:
       brew install bison
       brew install elektra
       brew install llvm
+      export CC=/usr/local/opt/llvm/bin/clang
+      export CXX=/usr/local/opt/llvm/bin/clang++
       brew install ninja
     fi
 
