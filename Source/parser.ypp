@@ -7,8 +7,10 @@
 {
 #include <string>
 class Driver;
+class Lexer;
 }
 // The parsing context.
+%parse-param { Lexer& lexer }
 %parse-param { Driver& driver }
 %locations
 %initial-action
@@ -23,7 +25,7 @@ class Driver;
 # include "driver.hpp"
 
 #undef yylex
-#define yylex driver.lexer.nextToken
+#define yylex lexer.nextToken
 }
 %define api.token.prefix {TOKEN_}
 %token

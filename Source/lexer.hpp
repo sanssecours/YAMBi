@@ -36,21 +36,11 @@ class Lexer {
 
 public:
   /**
-   * This constructor creates an empty lexer.
-   */
-  Lexer();
-
-  /**
    * This constructor initializes a lexer with the given input.
    *
    * @param stream This stream specifies the text which this lexer analyzes.
    */
   Lexer(ifstream &stream);
-
-  /**
-   * This destructor deletes the Lexer and its instance variables.
-   */
-  virtual ~Lexer();
 
   /**
    * This method returns the next token the lexer produced from `input`.

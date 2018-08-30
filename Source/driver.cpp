@@ -32,8 +32,8 @@ int Driver::parse(const string &filepath) {
     return EXIT_FAILURE;
   }
 
-  lexer = Lexer{input};
-  parser parser{*this};
+  Lexer lexer{input};
+  parser parser{lexer, *this};
 
   return parser.parse();
 }

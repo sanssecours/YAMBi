@@ -18,8 +18,6 @@ class Driver {
 public:
   /** This variable stores the path of the YAML file the driver is parsing. */
   string filename;
-  /** This attribute stores the YAML lexer for the current file. */
-  Lexer lexer;
 
   /**
    * This function parses the current YAML file.

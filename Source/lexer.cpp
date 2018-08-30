@@ -20,21 +20,11 @@ void Lexer::scanStart() {
 }
 
 /**
- * This constructor creates an empty lexer.
- */
-Lexer::Lexer() {}
-
-/**
  * This constructor initializes a lexer with the given input.
  *
  * @param stream This stream specifies the text which this lexer analyzes.
  */
 Lexer::Lexer(ifstream &stream) : input{stream} { scanStart(); }
-
-/**
- * This destructor deletes the Lexer and its instance variables.
- */
-Lexer::~Lexer() {}
 
 /**
  * This method returns the next token the lexer produced from `input`.
