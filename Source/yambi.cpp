@@ -1,6 +1,10 @@
 #include <iostream>
 
-#include "driver.hpp"
+#include <kdb.hpp>
+
+#include "convert.hpp"
+
+using ckdb::keyNew;
 
 using std::cerr;
 using std::endl;
@@ -13,7 +17,10 @@ int main(int argc, char const *argv[]) {
   }
 
   string filename = argv[1];
-  Driver driver;
 
-  return driver.parse(filename);
+  KeySet keys;
+  Key parent{keyNew("user", KEY_END, "", KEY_VALUE)};
+
+  return (addToKeySet(keys, parent, filename) >= 0) ? EXIT_SUCCESS
+                                                    : EXIT_FAILURE;
 }
