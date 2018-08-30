@@ -4,13 +4,14 @@
 // -- Imports ------------------------------------------------------------------
 
 #include <deque>
+#include <fstream>
 
+#include "input.hpp"
 #include "parser.hpp"
 #include "symbol.hpp"
 
 using std::deque;
 using std::ifstream;
-using std::u32string;
 
 using symbol_type = yy::parser::symbol_type;
 using location_type = yy::parser::location_type;
@@ -18,12 +19,8 @@ using location_type = yy::parser::location_type;
 // -- Class --------------------------------------------------------------------
 
 class Lexer {
-  /** This variable stores the content of the file the lexer is currently
-      parsing. */
-  u32string input;
-
-  /** This variable stores the current position inside `input`. */
-  size_t position;
+  /** This attribute represents the input the lexer tokenizes. */
+  Input input;
 
   /** This variable stores the current line and column number in Bison’s
       location format. */
@@ -31,23 +28,6 @@ class Lexer {
 
   /** This queue stores the list of tokens produced by the lexer. */
   deque<Symbol> tokens;
-
-  /**
-   * This function returns a token the lexer has not consumed yet.
-   *
-   * @param offset This variable specifies the index of the character
-   *               this method should retrieve as offset to the last consumed
-   *               character.
-   *
-   * @return The character which is `offset` positions away from the last
-   *         consumed character
-   */
-  size_t lookahead(size_t offset);
-
-  /**
-   * This method consumes the next character of `input`.
-   */
-  void consume();
 
   /**
    * This method add a token stream start symbol to the token queue.

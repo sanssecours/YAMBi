@@ -29,6 +29,8 @@ if(NOT BISON_YAMBi_DEFINED)
 endif(NOT BISON_YAMBi_DEFINED)
 
 set(SOURCE_FILES
+    ${SOURCE_DIRECTORY}/input.hpp
+    ${SOURCE_DIRECTORY}/input.cpp
     ${SOURCE_DIRECTORY}/lexer.hpp
     ${SOURCE_DIRECTORY}/lexer.cpp
     ${SOURCE_DIRECTORY}/driver.hpp
