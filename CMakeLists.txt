@@ -22,6 +22,9 @@ endif(APPLE)
 find_package(Bison 3 REQUIRED)
 find_package(Elektra REQUIRED)
 
+message(STATUS "Elektra ${ELEKTRA_VERSION} found")
+include_directories(${ELEKTRA_INCLUDE_DIR})
+
 set(SOURCE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/Source)
 
 bison_target(YAMBi ${SOURCE_DIRECTORY}/parser.ypp
@@ -36,9 +39,11 @@ set(SOURCE_FILES
     ${SOURCE_DIRECTORY}/input.cpp
     ${SOURCE_DIRECTORY}/lexer.hpp
     ${SOURCE_DIRECTORY}/lexer.cpp
+    ${SOURCE_DIRECTORY}/symbol.hpp
     ${SOURCE_DIRECTORY}/driver.hpp
     ${SOURCE_DIRECTORY}/driver.cpp
-    ${SOURCE_DIRECTORY}/symbol.hpp
+    ${SOURCE_DIRECTORY}/convert.hpp
+    ${SOURCE_DIRECTORY}/convert.cpp
     ${SOURCE_DIRECTORY}/yambi.cpp
     ${BISON_YAMBi_OUTPUT_SOURCE}
     ${BISON_YAMBi_OUTPUT_HEADER})
