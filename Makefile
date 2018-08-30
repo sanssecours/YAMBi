@@ -7,6 +7,13 @@ export PROGRAM := yambi
 
 .PHONY: clean compile
 
+all: lint
+
+lint: run
+	@printf '\n✨ Lint\n'
+	@oclint -p Build -no-analytics -enable-global-analysis \
+	        -enable-clang-static-analyzer Source/*.cpp
+
 run: compile
 	@printf '🚗 Run\n\n'
 	@$(BUILD_DIRECTORY)/$(PROGRAM) \
