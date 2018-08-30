@@ -20,21 +20,11 @@ class Input {
 
 public:
   /**
-   * @brief This constructor creates an new empty input.
-   */
-  Input();
-
-  /**
    * @brief This constructor creates an input from the given stream.
    *
    * @param stream This parameter stores the text this object operates on.
    */
   Input(ifstream const &stream);
-
-  /**
-   * This destructor deletes the input and its instance variables.
-   */
-  virtual ~Input();
 
   /**
    * @brief This function returns a character that was not consumed yet.

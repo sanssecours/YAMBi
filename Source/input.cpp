@@ -14,11 +14,6 @@ using std::wstring_convert;
 // -- Class --------------------------------------------------------------------
 
 /**
- * @brief This constructor creates an new empty input.
- */
-Input::Input() {}
-
-/**
  * @brief This constructor creates an input from the given stream.
  *
  * @param stream This parameter stores the text this object operates on.
@@ -29,11 +24,6 @@ Input::Input(ifstream const &stream) {
   input = wstring_convert<codecvt_utf8<char32_t>, char32_t>{}.from_bytes(
       stringStream.str());
 }
-
-/**
- * This destructor deletes the input and its instance variables.
- */
-Input::~Input() {}
 
 /**
  * @brief This function returns a character that was not consumed yet.
