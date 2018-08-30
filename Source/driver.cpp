@@ -13,7 +13,7 @@ using yy::parser;
 // -- Class --------------------------------------------------------------------
 
 /**
- * This function parses the current YAML file.
+ * @brief This function parses the current YAML file.
  *
  * @param filename This parameter stores the path of the file the driver
  *                 should parse.
@@ -39,7 +39,7 @@ int Driver::parse(const string &filepath) {
 }
 
 /**
- * This function will be called by the Bison parser to indicate an error.
+ * @brief This function will be called by the Bison parser to indicate an error.
  *
  * @param location This value specifies the location of the erroneous input.
  * @param message This value stores the error message emitted by the Bison

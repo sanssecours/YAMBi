@@ -20,7 +20,7 @@ public:
   string filename;
 
   /**
-   * This function parses the current YAML file.
+   * @brief This function parses the current YAML file.
    *
    * @param filename This parameter stores the path of the file the driver
    *                 should parse.
@@ -33,7 +33,8 @@ public:
   int parse(const string &filename);
 
   /**
-   * This function will be called by the Bison parser to indicate an error.
+   * @brief This function will be called by the Bison parser to indicate an
+   *        error.
    *
    * @param location This value specifies the location of the erroneous input.
    * @param message This value stores the error message emitted by the Bison
