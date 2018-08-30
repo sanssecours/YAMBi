@@ -9,6 +9,7 @@ matrix:
         - ASAN_OPTIONS=detect_leaks=1
 
     - os: osx
+      osx_image: xcode9.2
       name: 🍏 GCC
       compiler: gcc
 
