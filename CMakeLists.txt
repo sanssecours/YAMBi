@@ -22,7 +22,6 @@ endif(APPLE)
 find_package(Bison 3 REQUIRED)
 find_package(Elektra REQUIRED)
 
-message(STATUS "Elektra ${ELEKTRA_VERSION} found")
 include_directories(${ELEKTRA_INCLUDE_DIR})
 
 set(SOURCE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/Source)
@@ -57,3 +56,4 @@ set(SOURCE_FILES
     ${BISON_YAMBi_OUTPUT_HEADER})
 include_directories(${CMAKE_CURRENT_BINARY_DIR} ${SOURCE_DIRECTORY})
 add_executable(yambi ${SOURCE_FILES})
+target_link_libraries(yambi elektra)
