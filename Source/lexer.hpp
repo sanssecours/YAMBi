@@ -36,14 +36,14 @@ class Lexer {
 
 public:
   /**
-   * This constructor initializes a lexer with the given input.
+   * @brief This constructor initializes a lexer with the given input.
    *
    * @param stream This stream specifies the text which this lexer analyzes.
    */
   Lexer(ifstream &stream);
 
   /**
-   * This method returns the next token the lexer produced from `input`.
+   * @brief This method returns the next token the lexer produced from `input`.
    *
    * @return The next token the parser has not emitted yet
    */
