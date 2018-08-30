@@ -21,7 +21,7 @@ run: compile
 
 compile: $(BUILD_DIRECTORY)
 	@printf '🏗 Build\n\n'
-	@ninja -C Build
+	@ninja -C Build | sed 's~\.\./~~'
 	@printf '\n'
 
 $(BUILD_DIRECTORY):
