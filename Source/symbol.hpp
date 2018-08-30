@@ -56,6 +56,7 @@ public:
     case token::TOKEN_SCALAR:
       return parser::make_SCALAR(text, placement);
     }
+    return parser::make_END(placement);
   }
 };
 
