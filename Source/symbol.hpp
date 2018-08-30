@@ -22,25 +22,25 @@ using token = parser::token;
  */
 class Symbol {
   /** This variable stores the location of this symbol. */
-  location_type location;
+  location_type placement;
 
   /** This variable specifies the token type of this symbol. */
-  token_type token;
+  token_type tokenType;
 
   /** This variable stores the actual value of the symbol. */
-  string value;
+  string text;
 
 public:
   /**
    * @brief This constructor creates a symbol from the given arguments.
    *
-   * @param token This argument specifies the token type of the symbol.
+   * @param type This argument specifies the token type of the symbol.
    * @param location This argument specifies the location of the symbol.
    * @param value This variable stores the value of this symbol.
    */
-  Symbol(token_type const &token, location_type const &location,
+  Symbol(token_type const &type, location_type const &location,
          string const &value)
-      : location{location}, token{token}, value{value} {}
+      : placement{location}, tokenType{type}, text{value} {}
 
   /**
    * @brief This method returns the Bison symbol represented by this object.
@@ -48,13 +48,13 @@ public:
    * @return A symbol representing this object
    */
   symbol_type get() {
-    switch (token) {
+    switch (tokenType) {
     case token::TOKEN_END:
-      return parser::make_END(location);
+      return parser::make_END(placement);
     case token::TOKEN_STREAM_START:
-      return parser::make_STREAM_START(value, location);
+      return parser::make_STREAM_START(text, placement);
     case token::TOKEN_SCALAR:
-      return parser::make_SCALAR(value, location);
+      return parser::make_SCALAR(text, placement);
     }
   }
 };
