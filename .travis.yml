@@ -19,12 +19,9 @@ before_install:
 before_script:
   - mkdir -p Build
   - cd Build
-  - printf '🤖 Configure\n\n'
   - cmake -G Ninja -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ..
   - cd ..
 
 script:
-  - printf '🏗 Build\n\n'
   - ninja -C Build
-  - printf '🚗 Run\n\n'
   - Build/yambi Input/"Plain Scalar>Word Chars.yaml"
