@@ -1,6 +1,7 @@
 // -- Imports ------------------------------------------------------------------
 
 #include <codecvt>
+#include <locale>
 #include <sstream>
 #include <stdexcept>
 
