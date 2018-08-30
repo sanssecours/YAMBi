@@ -3,6 +3,7 @@ language: cpp
 matrix:
   include:
     - os: osx
+      name: 🍏 Clang
 
 before_install:
   - |
