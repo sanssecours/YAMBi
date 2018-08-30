@@ -34,9 +34,16 @@ if(NOT BISON_YAMBi_DEFINED)
   message(fatal "Unable to generate parser")
 endif(NOT BISON_YAMBi_DEFINED)
 
+set(SOURCES_INPUT ${SOURCE_DIRECTORY}/input.hpp ${SOURCE_DIRECTORY}/input.cpp)
+
+if(CMAKE_COMPILER_IS_GNUCXX)
+  set_source_files_properties(${SOURCES_INPUT}
+                              PROPERTIES
+                              COMPILE_FLAGS
+                              "-fno-sanitize=undefined")
+endif(CMAKE_COMPILER_IS_GNUCXX)
+
 set(SOURCE_FILES
-    ${SOURCE_DIRECTORY}/input.hpp
-    ${SOURCE_DIRECTORY}/input.cpp
     ${SOURCE_DIRECTORY}/lexer.hpp
     ${SOURCE_DIRECTORY}/lexer.cpp
     ${SOURCE_DIRECTORY}/symbol.hpp
@@ -45,6 +52,7 @@ set(SOURCE_FILES
     ${SOURCE_DIRECTORY}/convert.hpp
     ${SOURCE_DIRECTORY}/convert.cpp
     ${SOURCE_DIRECTORY}/yambi.cpp
+    ${SOURCES_INPUT}
     ${BISON_YAMBi_OUTPUT_SOURCE}
     ${BISON_YAMBi_OUTPUT_HEADER})
 include_directories(${CMAKE_CURRENT_BINARY_DIR} ${SOURCE_DIRECTORY})
