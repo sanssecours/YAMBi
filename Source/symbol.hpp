@@ -32,7 +32,7 @@ class Symbol {
 
 public:
   /**
-   * This constructor creates a symbol from the given arguments.
+   * @brief This constructor creates a symbol from the given arguments.
    *
    * @param token This argument specifies the token type of the symbol.
    * @param location This argument specifies the location of the symbol.
@@ -43,7 +43,7 @@ public:
       : location{location}, token{token}, value{value} {}
 
   /**
-   * This method returns the Bison symbol represented by this object.
+   * @brief This method returns the Bison symbol represented by this object.
    *
    * @return A symbol representing this object
    */
