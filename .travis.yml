@@ -39,4 +39,7 @@ before_script:
 
 script:
   - ninja -C Build
+  - >
+    oclint -p Build -no-analytics -enable-global-analysis
+    -enable-clang-static-analyzer Source/*.cpp
   - Build/yambi Input/"Plain Scalar>Word Chars.yaml"
