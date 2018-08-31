@@ -6,6 +6,7 @@
 #include <fstream>
 
 using std::ifstream;
+using std::string;
 using std::u32string;
 
 // -- Class --------------------------------------------------------------------
@@ -49,6 +50,18 @@ public:
    * @return The current position in number of characters
    */
   size_t index() const;
+
+  /**
+   * @brief This method retrieves the text between `start` (inclusive) and the
+   *         current position (exclusive).
+   *
+   * @param start This parameter specifies the start index of the string this
+   *              functions returns.
+   *
+   * @return A UTF-8 encoded substring of input starting at `start` and ending
+   *         one character before the current position in the input
+   */
+  string getText(size_t const start) const;
 };
 
 #endif // INPUT_HPP

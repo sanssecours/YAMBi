@@ -60,3 +60,20 @@ void Input::consume() {
  * @return The current position in number of characters
  */
 size_t Input::index() const { return position; }
+
+/**
+ * @brief This method retrieves the text between `start` (inclusive) and the
+ *         current position (exclusive).
+ *
+ * @param start This parameter specifies the start index of the string this
+ *              functions returns.
+ *
+ * @return A UTF-8 encoded substring of input starting at `start` and ending
+ *         one character before the current position in the input
+ */
+string Input::getText(size_t const start) const {
+  string text =
+      wstring_convert<std::codecvt_utf8<char32_t>, char32_t>{}.to_bytes(
+          input.substr(start, position));
+  return text;
+}
