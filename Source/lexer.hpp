@@ -64,6 +64,11 @@ class Lexer {
 #endif
 
   /**
+   * @brief This method adds new tokens to the token queue.
+   */
+  void fetchTokens();
+
+  /**
    * @brief This method adds the token for the start of the YAML stream to
    *        `tokens`.
    */

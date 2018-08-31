@@ -19,6 +19,11 @@ using token = parser::token;
 // -- Class --------------------------------------------------------------------
 
 /**
+ * @brief This method adds new tokens to the token queue.
+ */
+void Lexer::fetchTokens() {}
+
+/**
  * @brief This method adds the token for the start of the YAML stream to
  *        `tokens`.
  */
@@ -50,6 +55,7 @@ Lexer::Lexer(ifstream &stream) : input{stream} {
   LOG("Init lexer");
 
   scanStart();
+  fetchTokens();
   scanEnd();
 }
 
