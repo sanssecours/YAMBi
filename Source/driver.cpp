@@ -10,6 +10,10 @@ using std::endl;
 
 using yy::parser;
 
+// -- Macros -------------------------------------------------------------------
+
+#define DEBUG_LEVEL 1
+
 // -- Class --------------------------------------------------------------------
 
 /**
@@ -42,6 +46,7 @@ int Driver::parse(const string &filepath) {
 
   Lexer lexer{input};
   parser parser{lexer, *this};
+  parser.set_debug_level(DEBUG_LEVEL);
 
   return parser.parse();
 }
