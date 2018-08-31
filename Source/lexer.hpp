@@ -64,6 +64,15 @@ class Lexer {
 #endif
 
   /**
+   * @brief This method consumes characters from the input stream keeping
+   *        track of line and column numbers.
+   *
+   * @param characters This parameter specifies the number of characters the
+   *                   the function should consume.
+   */
+  void forward(size_t const characters);
+
+  /**
    * @brief This method adds new tokens to the token queue.
    */
   void fetchTokens();
