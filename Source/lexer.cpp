@@ -28,6 +28,15 @@ void Lexer::scanStart() {
 }
 
 /**
+ * @brief This method adds the token for the end of the YAML stream to
+ *        the token queue.
+ */
+void Lexer::scanEnd() {
+  LOG("Scan end token")
+  tokens.push_back(Symbol(token::TOKEN_STREAM_END, location, "STREAM END"));
+}
+
+/**
  * @brief This constructor initializes a lexer with the given input.
  *
  * @param stream This stream specifies the text which this lexer analyzes.
@@ -41,6 +50,7 @@ Lexer::Lexer(ifstream &stream) : input{stream} {
   LOG("Init lexer");
 
   scanStart();
+  scanEnd();
 }
 
 /**

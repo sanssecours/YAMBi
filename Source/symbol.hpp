@@ -53,6 +53,8 @@ public:
       return parser::make_END(placement);
     case token::TOKEN_STREAM_START:
       return parser::make_STREAM_START(text, placement);
+    case token::TOKEN_STREAM_END:
+      return parser::make_STREAM_END(text, placement);
     case token::TOKEN_SCALAR:
       return parser::make_SCALAR(text, placement);
     }

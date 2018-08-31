@@ -32,11 +32,12 @@ class Lexer;
   END  0  "end of file"
 ;
 %token <std::string> STREAM_START
+%token <std::string> STREAM_END
 %token <std::string> SCALAR "scalar"
 
 %%
 
-yaml: STREAM_START
+yaml: STREAM_START STREAM_END
     | "scalar"
     ;
 
