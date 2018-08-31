@@ -31,6 +31,7 @@ before_install:
         export CXX=/usr/local/opt/llvm/bin/clang++
       fi
       brew install bison
+      brew install spdlog
       brew install elektra
       brew install ninja
     fi

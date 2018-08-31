@@ -41,6 +41,17 @@ endif(NOT BISON_YAMBi_DEFINED)
 find_package(Elektra REQUIRED)
 include_directories(${ELEKTRA_INCLUDE_DIR})
 
+# ==========
+# = spdlog =
+# ==========
+
+find_path(spdlog_INCLUDE_DIR
+          NAMES spdlog/spdlog.h
+          DOC "spdlog library header files")
+if(spdlog_INCLUDE_DIR STREQUAL spdlog_INCLUDE_DIR-NOTFOUND)
+  message(FATAL_ERROR "spdlog not found")
+endif(spdlog_INCLUDE_DIR STREQUAL spdlog_INCLUDE_DIR-NOTFOUND)
+
 # =========
 # = YAMBi =
 # =========
@@ -67,6 +78,7 @@ set(SOURCE_FILES
     ${SOURCES_INPUT}
     ${BISON_YAMBi_OUTPUT_SOURCE}
     ${BISON_YAMBi_OUTPUT_HEADER})
-include_directories(${CMAKE_CURRENT_BINARY_DIR} ${SOURCE_DIRECTORY})
+include_directories(${CMAKE_CURRENT_BINARY_DIR} ${SOURCE_DIRECTORY}
+                    "${spdlog_INCLUDE_DIR}")
 add_executable(yambi ${SOURCE_FILES})
 target_link_libraries(yambi elektra)
