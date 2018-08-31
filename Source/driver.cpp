@@ -33,10 +33,10 @@ Driver::Driver(Key const &parent) { parents.push(parent); }
  * @param filename This parameter stores the path of the file the driver
  *                 should parse.
  *
- * @retval -1 if the given file could not be opened
+ * @retval -3 if the given file could not be opened
+ *         -2 if parsing was unsuccessful due to memory exhaustion
+ *         -1 if the given file contains a syntax error
  *          0 if parsing was successful
- *          1 if the given file contains a syntax error
- *          2 if parsing was unsuccessful due to memory exhaustion
  */
 int Driver::parse(const string &filepath) {
   filename = filepath;
@@ -44,14 +44,14 @@ int Driver::parse(const string &filepath) {
   ifstream input{filename};
   if (!input.good()) {
     perror(string("Unable to open file “" + filename + "”").c_str());
-    return -1;
+    return -3;
   }
 
   Lexer lexer{input};
   parser parser{lexer, *this};
   parser.set_debug_level(DEBUG_LEVEL);
 
-  return parser.parse();
+  return -parser.parse();
 }
 
 /**

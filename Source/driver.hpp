@@ -51,10 +51,10 @@ public:
    * @param filename This parameter stores the path of the file the driver
    *                 should parse.
    *
-   * @retval -1 if the given file could not be opened
+   * @retval -3 if the given file could not be opened
+   *         -2 if parsing was unsuccessful due to memory exhaustion
+   *         -1 if the given file contains a syntax error
    *          0 if parsing was successful
-   *          1 if the given file contains a syntax error
-   *          2 if parsing was unsuccessful due to memory exhaustion
    */
   int parse(const string &filepath);
 

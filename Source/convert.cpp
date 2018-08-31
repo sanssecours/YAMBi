@@ -6,11 +6,6 @@
 using kdb::Key;
 using kdb::KeySet;
 
-// -- Macros -------------------------------------------------------------------
-
-#define STATUS_SYNTAX_ERROR 1
-#define STATUS_MEMORY_EXHAUSTION 2
-
 // -- Function -----------------------------------------------------------------
 
 /**
@@ -23,7 +18,9 @@ using kdb::KeySet;
  * @param filename This parameter stores the path of the YAML file this
  *                 function converts.
  *
- * @retval -1 if there was an error converting the YAML file
+ * @retval -3 if the file could not be opened for reading
+ *         -2 if parsing was unsuccessful due to memory exhaustion
+ *         -1 if there was an syntax error converting the YAML file
  *          0 if parsing was successful and the function did not change the
  *            given keyset
  *          1 if parsing was successful and the function did change `keySet`
@@ -33,9 +30,8 @@ int addToKeySet(KeySet &keySet, Key &parent, string const &filename) {
 
   int status = driver.parse(filename);
 
-  if (status == -1 || status == STATUS_SYNTAX_ERROR ||
-      status == STATUS_MEMORY_EXHAUSTION) {
-    return -1;
+  if (status < 0) {
+    return status;
   }
 
   KeySet keys = driver.getKeySet();
