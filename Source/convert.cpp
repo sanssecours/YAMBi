@@ -41,7 +41,7 @@ int addToKeySet(KeySet &keySet, Key &parent, string const &filename) {
   KeySet keys = driver.getKeySet();
   status = (keys.size() <= 0) ? 0 : 1;
 
-  keySet.append(driver.getKeySet());
+  keySet.append(keys);
 
   return status;
 }
