@@ -21,7 +21,7 @@ using token = parser::token;
  *        `tokens`.
  */
 void Lexer::scanStart() {
-  LOG("Scan start token")
+  LOG("Scan start token");
   tokens.push_back(Symbol(token::TOKEN_STREAM_START, location, "STREAM START"));
 }
 
