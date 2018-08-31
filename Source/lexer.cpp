@@ -32,7 +32,7 @@ void Lexer::scanStart() {
  *        the token queue.
  */
 void Lexer::scanEnd() {
-  LOG("Scan end token")
+  LOG("Scan end token");
   tokens.push_back(Symbol(token::TOKEN_STREAM_END, location, "STREAM END"));
 }
 
