@@ -26,8 +26,8 @@ compile: $(BUILD_DIRECTORY)
 $(BUILD_DIRECTORY):
 	@printf '🤖 Configure\n\n'
 	@mkdir -p $(BUILD_DIRECTORY)
-	@cd $(BUILD_DIRECTORY); cmake -G Ninja -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ..
-	@printf '\n'
+	@cd $(BUILD_DIRECTORY); set -o pipefail; \
+		cmake -G Ninja -DCMAKE_EXPORT_COMPILE_COMMANDS=ON .. && printf '\n'
 
 clean:
 	@printf '🗑 Clean\n'
