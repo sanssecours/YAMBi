@@ -42,6 +42,13 @@ public:
    * @brief This method consumes the next character of `input`.
    */
   void consume();
+
+  /**
+   * @brief Retrieve the current position inside the input.
+   *
+   * @return The current position in number of characters
+   */
+  size_t index();
 };
 
 #endif // INPUT_HPP

@@ -53,3 +53,10 @@ void Input::consume() {
   }
   position++;
 }
+
+/**
+ * @brief Retrieve the current position inside the input.
+ *
+ * @return The current position in number of characters
+ */
+size_t Input::index() { return position; }
