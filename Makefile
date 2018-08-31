@@ -14,10 +14,14 @@ lint: run
 	@oclint -p Build -no-analytics -enable-global-analysis \
 	        -enable-clang-static-analyzer Source/*.cpp
 
-run: compile
+run: test
 	@printf '🚗 Run\n\n'
 	@$(BUILD_DIRECTORY)/$(PROGRAM) \
 		$(INPUT_DIRECTORY)/"Plain Scalar>Word Chars.yaml"
+
+test: compile
+	@printf '🐛 Test\n\n'
+	@Test/test.fish && printf '\n'
 
 compile: $(BUILD_DIRECTORY)
 	@printf '🏗 Build\n\n'
