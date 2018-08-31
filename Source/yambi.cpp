@@ -7,7 +7,16 @@
 using ckdb::keyNew;
 
 using std::cerr;
+using std::cout;
 using std::endl;
+
+void printOutput(KeySet const &keys) {
+  cout << "— Output ————" << endl << endl;
+  for (auto key : keys) {
+    cout << key.getName() << ":"
+         << (key.getStringSize() > 1 ? " " + key.getString() : "") << endl;
+  }
+}
 
 int main(int argc, char const *argv[]) {
 
@@ -21,6 +30,7 @@ int main(int argc, char const *argv[]) {
   KeySet keys;
   Key parent{keyNew("user", KEY_END, "", KEY_VALUE)};
 
-  return (addToKeySet(keys, parent, filename) >= 0) ? EXIT_SUCCESS
-                                                    : EXIT_FAILURE;
+  int status = addToKeySet(keys, parent, filename);
+  printOutput(keys);
+  return (status >= 0) ? EXIT_SUCCESS : EXIT_FAILURE;
 }
