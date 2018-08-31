@@ -28,9 +28,8 @@ using kdb::KeySet;
  *            given keyset
  *          1 if parsing was successful and the function did change `keySet`
  */
-int addToKeySet(KeySet &keySet, Key &parent __attribute__((unused)),
-                string const &filename) {
-  Driver driver;
+int addToKeySet(KeySet &keySet, Key &parent, string const &filename) {
+  Driver driver{parent};
 
   int status = driver.parse(filename);
 

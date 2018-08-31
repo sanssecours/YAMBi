@@ -13,6 +13,14 @@ using yy::parser;
 // -- Class --------------------------------------------------------------------
 
 /**
+ * This constructor creates a new driver for the given parent key.
+ *
+ * @param parent This key specifies the parent of the key set the parser
+ *               creates.
+ */
+Driver::Driver(Key const &parent) { parents.push(parent); }
+
+/**
  * @brief This function parses the current YAML file.
  *
  * @param filename This parameter stores the path of the file the driver

@@ -3,6 +3,7 @@
 
 // -- Imports ------------------------------------------------------------------
 
+#include <stack>
 #include <string>
 
 #include <kdb.hpp>
@@ -10,8 +11,10 @@
 #include "lexer.hpp"
 #include "parser.hpp"
 
+using std::stack;
 using std::string;
 
+using kdb::Key;
 using kdb::KeySet;
 
 using location_type = yy::parser::location_type;
@@ -27,6 +30,20 @@ class Driver {
 public:
   /** This variable stores the path of the YAML file the driver is parsing. */
   string filename;
+
+  /**
+   * This stack stores a key for each level of the current key name below
+   * parent.
+   */
+  stack<Key> parents;
+
+  /**
+   * This constructor creates a new driver for the given parent key.
+   *
+   * @param parent This key specifies the parent of the key set the parser
+   *               creates.
+   */
+  Driver(Key const &parent);
 
   /**
    * @brief This function parses the current YAML file.
