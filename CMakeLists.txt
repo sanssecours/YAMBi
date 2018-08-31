@@ -52,6 +52,7 @@ if(CMAKE_COMPILER_IS_GNUCXX)
                               PROPERTIES
                               COMPILE_FLAGS
                               "-fno-sanitize=undefined")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fvisibility=hidden")
 endif(CMAKE_COMPILER_IS_GNUCXX)
 
 set(SOURCE_FILES
