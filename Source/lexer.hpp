@@ -64,7 +64,8 @@ class Lexer {
 #endif
 
   /**
-   * This method add a token stream start symbol to the token queue.
+   * @brief This method adds the token for the start of the YAML stream to
+   *        `tokens`.
    */
   void scanStart();
 
