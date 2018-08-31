@@ -46,7 +46,10 @@ void Lexer::forward(size_t const characters = 1) {
 /**
  * @brief This method adds new tokens to the token queue.
  */
-void Lexer::fetchTokens() {}
+void Lexer::fetchTokens() {
+  location.step();
+  scanPlainScalar();
+}
 
 /**
  * @brief This method adds the token for the start of the YAML stream to
@@ -64,6 +67,69 @@ void Lexer::scanStart() {
 void Lexer::scanEnd() {
   LOG("Scan end token");
   tokens.push_back(Symbol(token::TOKEN_STREAM_END, location, "STREAM END"));
+}
+
+/**
+ * @brief This method scans a plain scalar and adds it to the token queue.
+ */
+void Lexer::scanPlainScalar() {
+  LOG("Scan plain scalar");
+
+  size_t lengthSpace = 0;
+  size_t lengthNonSpace = 0;
+  size_t start = input.index();
+
+  while (true) {
+    lengthNonSpace = countPlainNonSpace(lengthSpace);
+    if (lengthNonSpace == 0) {
+      break;
+    }
+    forward(lengthSpace + lengthNonSpace);
+    lengthSpace = countPlainSpace();
+  }
+
+  tokens.push_back(
+      Symbol(token::TOKEN_PLAIN_SCALAR, location, input.getText(start)));
+}
+
+/**
+ * @brief This method counts the number of non space characters that can be part
+ *        of a plain scalar at position `offset`.
+ *
+ * @param offset This parameter specifies an offset to the current input
+ *               position, where this function searches for non space
+ *               characters.
+ *
+ * @return The number of non-space characters at the input position `offset`
+ */
+size_t Lexer::countPlainNonSpace(size_t const offset) const {
+  LOG("Scan non space characters");
+  string const stop = " \n";
+
+  size_t lookahead = offset + 1;
+  while (stop.find(input.LA(lookahead)) == string::npos &&
+         input.LA(lookahead) != 0) {
+    lookahead++;
+  }
+
+  LOGF("Found {} non-space characters", lookahead - offset - 1);
+  return lookahead - offset - 1;
+}
+
+/**
+ * @brief This method counts the number of space characters that can be part
+ *        of a plain scalar at the current input position.
+ *
+ * @return The number of space characters at the current input position
+ */
+size_t Lexer::countPlainSpace() const {
+  LOG("Scan spaces");
+  size_t lookahead = 1;
+  while (input.LA(lookahead) == ' ') {
+    lookahead++;
+  }
+  LOGF("Found {} space characters", lookahead - 1);
+  return lookahead - 1;
 }
 
 /**

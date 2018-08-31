@@ -89,6 +89,31 @@ class Lexer {
    */
   void scanEnd();
 
+  /**
+   * @brief This method scans a plain scalar and adds it to the token queue.
+   */
+  void scanPlainScalar();
+
+  /**
+   * @brief This method counts the number of non space characters that can be
+   *        part of a plain scalar at position `offset`.
+   *
+   * @param offset This parameter specifies an offset to the current input
+   *               position, where this function searches for non space
+   *               characters.
+   *
+   * @return The number of non-space characters at the input position `offset`
+   */
+  size_t countPlainNonSpace(size_t const offset) const;
+
+  /**
+   * @brief This method counts the number of space characters that can be part
+   *        of a plain scalar at the current input position.
+   *
+   * @return The number of space characters at the current input position
+   */
+  size_t countPlainSpace() const;
+
 public:
   /**
    * @brief This constructor initializes a lexer with the given input.

@@ -57,7 +57,7 @@ public:
     switch (tokenType) {
       switchToken(STREAM_START);
       switchToken(STREAM_END);
-      switchToken(SCALAR);
+      switchToken(PLAIN_SCALAR);
     default:
       return parser::make_END(placement);
     }
