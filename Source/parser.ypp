@@ -40,9 +40,12 @@ class Lexer;
 yaml: STREAM_START node STREAM_END
     ;
 
-node : PLAIN_SCALAR
+node : value
      | %empty
      ;
+
+value : PLAIN_SCALAR { driver.exitValue($1); }
+      ;
 
 %%
 

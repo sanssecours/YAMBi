@@ -75,6 +75,17 @@ public:
    *                parser.
    */
   void error(const location_type &location, const string &message);
+
+  // ===========
+  // = Actions =
+  // ===========
+
+  /**
+   * @brief This function will be called after the parser exits a value.
+   *
+   * @param text This variable contains the text stored in the value.
+   */
+  void exitValue(string const &text);
 };
 
 #endif // DRIVER_HPP

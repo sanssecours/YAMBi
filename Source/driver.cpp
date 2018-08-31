@@ -8,6 +8,9 @@
 using std::cerr;
 using std::endl;
 
+using kdb::Key;
+using kdb::KeySet;
+
 using yy::parser;
 
 // -- Macros -------------------------------------------------------------------
@@ -68,4 +71,19 @@ KeySet Driver::getKeySet() { return keys; }
  */
 void Driver::error(const location_type &location, const string &message) {
   cerr << location << ": " << message << '\n';
+}
+
+// ===========
+// = Actions =
+// ===========
+
+/**
+ * @brief This function will be called after the parser exits a value.
+ *
+ * @param text This variable contains the text stored in the value.
+ */
+void Driver::exitValue(string const &text) {
+  Key key = parents.top();
+  key.setString(text);
+  keys.append(key);
 }
