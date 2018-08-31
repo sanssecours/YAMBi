@@ -15,16 +15,17 @@ if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=integer")
 endif(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
 
+set(SOURCE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/Source)
+
+# =========
+# = Bison =
+# =========
+
 if(APPLE)
   list(APPEND CMAKE_PREFIX_PATH "/usr/local/opt/bison")
 endif(APPLE)
 
 find_package(Bison 3 REQUIRED)
-find_package(Elektra REQUIRED)
-
-include_directories(${ELEKTRA_INCLUDE_DIR})
-
-set(SOURCE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/Source)
 
 bison_target(YAMBi ${SOURCE_DIRECTORY}/parser.ypp
              ${CMAKE_CURRENT_BINARY_DIR}/parser.cpp)
@@ -32,6 +33,17 @@ bison_target(YAMBi ${SOURCE_DIRECTORY}/parser.ypp
 if(NOT BISON_YAMBi_DEFINED)
   message(fatal "Unable to generate parser")
 endif(NOT BISON_YAMBi_DEFINED)
+
+# ===========
+# = Elektra =
+# ===========
+
+find_package(Elektra REQUIRED)
+include_directories(${ELEKTRA_INCLUDE_DIR})
+
+# =========
+# = YAMBi =
+# =========
 
 set(SOURCES_INPUT ${SOURCE_DIRECTORY}/input.hpp ${SOURCE_DIRECTORY}/input.cpp)
 
