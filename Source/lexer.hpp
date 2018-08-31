@@ -4,27 +4,41 @@
 // -- Macros -------------------------------------------------------------------
 
 #define SPDLOG_TRACE_ON
+
+#if defined(__clang__)
 #define LOGF(fmt, ...)                                                         \
-  console->trace("{}:{}: " fmt, __FUNCTION__, __LINE__, __VA_ARGS__);
-#define LOG(text) console->trace("{}:{}: {}", __FUNCTION__, __LINE__, text);
+  console->trace("{}:{}: " fmt, __FUNCTION__, __LINE__, __VA_ARGS__)
+#else
+#define LOGF(fmt, ...)
+#endif
+
+#if defined(__clang__)
+#define LOG(text) console->trace("{}:{}: {}", __FUNCTION__, __LINE__, text)
+#else
+#define LOG(text)
+#endif
 
 // -- Imports ------------------------------------------------------------------
 
 #include <deque>
 #include <fstream>
 
+#if defined(__clang__)
 #include <spdlog/sinks/stdout_color_sinks.h>
 #include <spdlog/spdlog.h>
+#endif
 
 #include "input.hpp"
 #include "parser.hpp"
 #include "symbol.hpp"
 
+#if defined(__clang__)
 using spdlog::logger;
+using std::shared_ptr;
+#endif
 
 using std::deque;
 using std::ifstream;
-using std::shared_ptr;
 
 using symbol_type = yy::parser::symbol_type;
 using location_type = yy::parser::location_type;
@@ -42,10 +56,12 @@ class Lexer {
   /** This queue stores the list of tokens produced by the lexer. */
   deque<Symbol> tokens;
 
+#if defined(__clang__)
   /**
    * This variable stores the logger used by the lexer to print debug messages.
    */
   shared_ptr<logger> console;
+#endif
 
   /**
    * This method add a token stream start symbol to the token queue.

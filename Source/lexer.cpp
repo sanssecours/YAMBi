@@ -4,10 +4,12 @@
 
 #include "lexer.hpp"
 
+#if defined(__clang__)
 using spdlog::set_level;
 using spdlog::set_pattern;
 using spdlog::stderr_color_mt;
 using spdlog::level::trace;
+#endif
 
 using yy::parser;
 
@@ -31,9 +33,11 @@ void Lexer::scanStart() {
  * @param stream This stream specifies the text which this lexer analyzes.
  */
 Lexer::Lexer(ifstream &stream) : input{stream} {
+#if defined(__clang__)
   set_pattern("[%H:%M:%S:%e] %v ");
   set_level(trace);
   console = stderr_color_mt("console");
+#endif
   LOG("Init lexer");
 
   scanStart();
