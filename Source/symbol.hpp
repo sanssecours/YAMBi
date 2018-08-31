@@ -14,6 +14,12 @@ using symbol_type = parser::symbol_type;
 using token_type = parser::token_type;
 using token = parser::token;
 
+// -- Macros -------------------------------------------------------------------
+
+#define switchToken(TOK)                                                       \
+  case token::TOKEN_##TOK:                                                     \
+    return parser::make_##TOK(text, placement)
+
 // -- Class --------------------------------------------------------------------
 
 /**
@@ -49,16 +55,12 @@ public:
    */
   symbol_type get() {
     switch (tokenType) {
-    case token::TOKEN_END:
+      switchToken(STREAM_START);
+      switchToken(STREAM_END);
+      switchToken(SCALAR);
+    default:
       return parser::make_END(placement);
-    case token::TOKEN_STREAM_START:
-      return parser::make_STREAM_START(text, placement);
-    case token::TOKEN_STREAM_END:
-      return parser::make_STREAM_END(text, placement);
-    case token::TOKEN_SCALAR:
-      return parser::make_SCALAR(text, placement);
     }
-    return parser::make_END(placement);
   }
 };
 
