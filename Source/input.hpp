@@ -36,7 +36,7 @@ public:
    * @return A character which is `offset` positions away from the last
    *         consumed character
    */
-  size_t lookahead(size_t const offset);
+  size_t LA(size_t const offset);
 
   /**
    * @brief This method consumes the next character of `input`.

@@ -29,13 +29,13 @@ void Lexer::forward(size_t const characters = 1) {
   LOGF("Forward {} characters", characters);
 
   for (size_t charsLeft = characters; charsLeft > 0; charsLeft--) {
-    if (input.lookahead(1) == 0) {
+    if (input.LA(1) == 0) {
       LOG("Hit EOF!");
       return;
     }
 
     location += 1;
-    if (input.lookahead(1) == '\n') {
+    if (input.LA(1) == '\n') {
       location.end.column = 1;
       location.lines();
     }
