@@ -21,7 +21,7 @@ run: compile
 
 compile: $(BUILD_DIRECTORY)
 	@printf '🏗 Build\n\n'
-	@set -o pipefail; ninja -C Build && printf '\n' | sed -e 's~\.\./~~';
+	@set -o pipefail; ninja -C Build | sed -e 's~\.\./~~' && printf '\n';
 
 $(BUILD_DIRECTORY):
 	@printf '🤖 Configure\n\n'
