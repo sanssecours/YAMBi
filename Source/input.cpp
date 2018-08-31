@@ -36,7 +36,7 @@ Input::Input(ifstream const &stream) {
  * @return A character which is `offset` positions away from the last
  *         consumed character
  */
-size_t Input::LA(size_t const offset) {
+size_t Input::LA(size_t const offset) const {
   if (offset == 0 || position + offset > input.size()) {
     return 0;
   }
@@ -59,4 +59,4 @@ void Input::consume() {
  *
  * @return The current position in number of characters
  */
-size_t Input::index() { return position; }
+size_t Input::index() const { return position; }

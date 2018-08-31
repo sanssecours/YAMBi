@@ -36,7 +36,7 @@ public:
    * @return A character which is `offset` positions away from the last
    *         consumed character
    */
-  size_t LA(size_t const offset);
+  size_t LA(size_t const offset) const;
 
   /**
    * @brief This method consumes the next character of `input`.
@@ -48,7 +48,7 @@ public:
    *
    * @return The current position in number of characters
    */
-  size_t index();
+  size_t index() const;
 };
 
 #endif // INPUT_HPP
