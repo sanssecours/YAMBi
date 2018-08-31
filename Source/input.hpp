@@ -16,7 +16,7 @@ class Input {
   u32string input;
 
   /** This variable stores the current position inside `input`. */
-  size_t position;
+  size_t position = 0;
 
 public:
   /**
