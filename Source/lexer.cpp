@@ -44,6 +44,25 @@ void Lexer::forward(size_t const characters = 1) {
 }
 
 /**
+ * @brief This function adds an indentation value if the given value is smaller
+ *        than the current indentation.
+ *
+ * @param lineIndex This parameter specifies the indentation value that this
+ *                  function compares to the current indentation.
+ *
+ * @retval true If the function added an indentation value
+ *         false Otherwise
+ */
+bool Lexer::addIndentation(size_t const lineIndex) {
+  if (static_cast<long long>(lineIndex) > indents.top()) {
+    LOGF("Add indentation {}", lineIndex);
+    indents.push(lineIndex);
+    return true;
+  }
+  return false;
+}
+
+/**
  * @brief This function checks if the lexer needs to scan additional tokens.
  *
  * @retval true If the lexer should fetch additional tokens

@@ -22,6 +22,7 @@
 
 #include <deque>
 #include <fstream>
+#include <stack>
 
 #if defined(__clang__)
 #include <spdlog/sinks/stdout_color_sinks.h>
@@ -40,6 +41,7 @@ using std::shared_ptr;
 using std::deque;
 using std::ifstream;
 using std::pair;
+using std::stack;
 using std::unique_ptr;
 
 using symbol_type = yy::parser::symbol_type;
@@ -64,6 +66,12 @@ class Lexer {
    * `KEY` tokens in the token queue.
    */
   size_t tokensEmitted = 0;
+
+  /**
+   * This stack stores the indentation (in number of characters) for each
+   * block collection.
+   */
+  stack<long long> indents{deque<long long>{-1}};
 
   /**
    * This boolean specifies if the lexer has already scanned the whole input or
@@ -96,6 +104,18 @@ class Lexer {
    *                   the function should consume.
    */
   void forward(size_t const characters);
+
+  /**
+   * @brief This function adds an indentation value if the given value is
+   *        smaller than the current indentation.
+   *
+   * @param lineIndex This parameter specifies the indentation value that this
+   *                  function compares to the current indentation.
+   *
+   * @retval true If the function added an indentation value
+   *         false Otherwise
+   */
+  bool addIndentation(size_t const column);
 
   /**
    * @brief This method removes uninteresting characters from the input.
