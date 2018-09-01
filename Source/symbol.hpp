@@ -6,6 +6,7 @@
 #include "parser.hpp"
 
 using std::string;
+using std::to_string;
 
 using yy::parser;
 
@@ -61,6 +62,18 @@ public:
     default:
       return parser::make_END(placement);
     }
+  }
+
+  /**
+   * @brief This method returns a string representation of this symbol.
+   *
+   * @return A string representing this symbol
+   */
+  string toString() {
+    return "<" + to_string(placement.begin.line) + ":" +
+           to_string(placement.begin.column) + "," +
+           to_string(placement.end.line) + ":" +
+           to_string(placement.end.column) + "," + text + ">";
   }
 };
 
