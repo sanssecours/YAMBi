@@ -1,6 +1,7 @@
 // -- Imports ------------------------------------------------------------------
 
 #include <fstream>
+#include <stdexcept>
 
 #include "lexer.hpp"
 
@@ -12,6 +13,7 @@ using spdlog::level::trace;
 #endif
 
 using std::make_pair;
+using std::runtime_error;
 
 using yy::parser;
 using location_type = parser::location_type;
@@ -109,6 +111,21 @@ void Lexer::fetchTokens() {
   if (input.LA(1) == 0) {
     scanEnd();
     return;
+  } else if (isValue()) {
+    scanValue();
+    return;
+  } else if (isElement()) {
+    scanElement();
+    return;
+  } else if (input.LA(1) == '"') {
+    scanDoubleQuotedScalar();
+    return;
+  } else if (input.LA(1) == '\'') {
+    scanSingleQuotedScalar();
+    return;
+  } else if (input.LA(1) == '#') {
+    scanComment();
+    return;
   }
 
   scanPlainScalar();
@@ -202,6 +219,46 @@ void Lexer::scanEnd() {
 }
 
 /**
+ * @brief This method scans a single quoted scalar and adds it to the token
+ *        queue.
+ */
+void Lexer::scanSingleQuotedScalar() {
+  LOG("Scan single quoted scalar");
+
+  size_t start = input.index();
+  // A single quoted scalar can start a simple key
+  addSimpleKeyCandidate();
+
+  forward(); // Include initial single quote
+  while (input.LA(1) != '\'' || input.LA(2) == '\'') {
+    forward();
+  }
+  forward(); // Include closing single quote
+  tokens.push_back(Symbol(token::TOKEN_SINGLE_QUOTED_SCALAR, location,
+                          input.getText(start)));
+}
+
+/**
+ * @brief This method scans a double quoted scalar and adds it to the token
+ *        queue.
+ */
+void Lexer::scanDoubleQuotedScalar() {
+  LOG("Scan double quoted scalar");
+  size_t start = input.index();
+
+  // A double quoted scalar can start a simple key
+  addSimpleKeyCandidate();
+
+  forward(); // Include initial double quote
+  while (input.LA(1) != '"') {
+    forward();
+  }
+  forward(); // Include closing double quote
+  tokens.push_back(Symbol(token::TOKEN_DOUBLE_QUOTED_SCALAR, location,
+                          input.getText(start)));
+}
+
+/**
  * @brief This method scans a plain scalar and adds it to the token queue.
  */
 void Lexer::scanPlainScalar() {
@@ -265,6 +322,57 @@ size_t Lexer::countPlainSpace() const {
   }
   LOGF("Found {} space characters", lookahead - 1);
   return lookahead - 1;
+}
+
+/**
+ * @brief This method scans a comment and adds it to the token queue.
+ */
+void Lexer::scanComment() {
+  LOG("Scan comment");
+  while (input.LA(1) != '\n') {
+    forward();
+  }
+  tokens.push_back(Symbol(token::TOKEN_COMMENT, location));
+}
+
+/**
+ * @brief This method scans a mapping value token and adds it to the token
+ *        queue.
+ */
+void Lexer::scanValue() {
+  LOG("Scan value");
+  forward(1);
+  tokens.push_back(
+      Symbol(token::TOKEN_VALUE, location, input.getText(input.index() - 1)));
+  forward(1);
+  if (simpleKey.first == nullptr) {
+    throw runtime_error("Unable to locate key for value");
+  }
+  tokens.insert(tokens.begin() + simpleKey.second - tokensEmitted,
+                *simpleKey.first);
+  auto start = simpleKey.first->getStart();
+  simpleKey.first = nullptr; // Remove key candidate
+  if (addIndentation(start.column)) {
+    location.begin = start;
+    tokens.push_front(
+        Symbol(token::TOKEN_MAPPING_START, location, "MAPPING START"));
+  }
+}
+
+/**
+ * @brief This method scans a list element token and adds it to the token
+ *        queue.
+ */
+void Lexer::scanElement() {
+  LOG("Scan element");
+  if (addIndentation(location.end.column)) {
+    tokens.push_back(
+        Symbol(token::TOKEN_SEQUENCE_START, location, "SEQUENCE START"));
+  }
+  forward(1);
+  tokens.push_back(
+      Symbol(token::TOKEN_ELEMENT, location, input.getText(input.index() - 1)));
+  forward(1);
 }
 
 /**

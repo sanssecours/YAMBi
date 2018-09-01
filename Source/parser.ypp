@@ -34,8 +34,15 @@ class Lexer;
 %token <std::string> STREAM_START
 %token <std::string> STREAM_END
 %token <std::string> PLAIN_SCALAR
-%token <std::string> KEY
 %token <std::string> BLOCK_END
+%token <std::string> SINGLE_QUOTED_SCALAR
+%token <std::string> DOUBLE_QUOTED_SCALAR
+%token <std::string> COMMENT
+%token <std::string> MAPPING_START
+%token <std::string> KEY
+%token <std::string> VALUE
+%token <std::string> SEQUENCE_START
+%token <std::string> ELEMENT
 
 %%
 

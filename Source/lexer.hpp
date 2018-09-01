@@ -197,6 +197,18 @@ class Lexer {
   void scanEnd();
 
   /**
+   * @brief This method scans a single quoted scalar and adds it to the token
+   *        queue.
+   */
+  void scanSingleQuotedScalar();
+
+  /**
+   * @brief This method scans a double quoted scalar and adds it to the token
+   *        queue.
+   */
+  void scanDoubleQuotedScalar();
+
+  /**
    * @brief This method scans a plain scalar and adds it to the token queue.
    */
   void scanPlainScalar();
@@ -220,6 +232,23 @@ class Lexer {
    * @return The number of space characters at the current input position
    */
   size_t countPlainSpace() const;
+
+  /**
+   * @brief This method scans a comment and adds it to the token queue.
+   */
+  void scanComment();
+
+  /**
+   * @brief This method scans a mapping value token and adds it to the token
+   *        queue.
+   */
+  void scanValue();
+
+  /**
+   * @brief This method scans a list element token and adds it to the token
+   *        queue.
+   */
+  void scanElement();
 
 public:
   /**
