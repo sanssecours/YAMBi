@@ -11,7 +11,7 @@ using std::cout;
 using std::endl;
 
 void printOutput(KeySet const &keys) {
-  cout << "— Output ————" << endl << endl;
+  cout << endl << "— Output ————" << endl << endl;
   for (auto key : keys) {
     cout << key.getName() << ":"
          << (key.getStringSize() > 1 ? " " + key.getString() : "") << endl;
