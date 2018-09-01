@@ -22,6 +22,7 @@
 
 #include <deque>
 #include <fstream>
+#include <memory>
 #include <stack>
 
 #if defined(__clang__)
