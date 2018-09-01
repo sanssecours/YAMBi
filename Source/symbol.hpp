@@ -46,7 +46,7 @@ public:
    * @param value This variable stores the value of this symbol.
    */
   Symbol(token_type const &type, location_type const &location,
-         string const &value)
+         string const &value = "")
       : placement{location}, tokenType{type}, text{value} {}
 
   /**
