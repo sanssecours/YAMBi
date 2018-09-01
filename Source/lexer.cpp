@@ -293,8 +293,8 @@ parser::symbol_type Lexer::nextToken() {
   while (needMoreTokens()) {
     fetchTokens();
     LOG("Tokens:");
-    for (auto token : tokens) {
-      LOGF("\t {}", token.toString());
+    for (auto symbol : tokens) {
+      LOGF("\t {}", symbol.toString());
     }
   }
 
@@ -303,8 +303,8 @@ parser::symbol_type Lexer::nextToken() {
   if (tokens.size() <= 0) {
     tokens.push_back(Symbol(token::TOKEN_END, location));
   }
-  Symbol token = tokens.front();
+  Symbol symbol = tokens.front();
   tokens.pop_front();
   tokensEmitted++;
-  return token.get();
+  return symbol.get();
 }
