@@ -174,6 +174,16 @@ class Lexer {
   void addSimpleKeyCandidate();
 
   /**
+   * @brief This method adds block closing tokens to the token queue, if the
+   *        indentation decreased.
+   *
+   * @param lineIndex This parameter specifies the column (indentation in number
+   *                  of spaces) for which this method should add block end
+   *                  tokens.
+   */
+  void addBlockEnd(long long const lineIndex);
+
+  /**
    * @brief This method adds the token for the start of the YAML stream to
    *        `tokens`.
    */
