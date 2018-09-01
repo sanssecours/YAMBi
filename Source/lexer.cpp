@@ -52,6 +52,46 @@ void Lexer::fetchTokens() {
 }
 
 /**
+ * @brief This method checks if the input at the specified offset starts a key
+ *        value token.
+ *
+ * @param offset This parameter specifies an offset to the current position,
+ *               where this function will look for a key value token.
+ *
+ * @retval true If the input matches a key value token
+ *         false Otherwise
+ */
+bool Lexer::isValue(size_t const offset) const {
+  return (input.LA(offset) == ':') &&
+         (input.LA(offset + 1) == '\n' || input.LA(offset + 1) == ' ');
+}
+
+/**
+ * @brief This method checks if the current input starts a list element.
+ *
+ * @retval true If the input matches a list element token
+ *         false Otherwise
+ */
+bool Lexer::isElement() const {
+  return (input.LA(1) == '-') && (input.LA(2) == '\n' || input.LA(2) == ' ');
+}
+
+/**
+ * @brief This method checks if the input at the specified offset starts a line
+ *        comment.
+ *
+ * @param offset This parameter specifies an offset to the current position,
+ *               where this function will look for a comment token.
+ *
+ * @retval true If the input matches a comment token
+ *         false Otherwise
+ */
+bool Lexer::isComment(size_t const offset) const {
+  return (input.LA(offset) == '#') &&
+         (input.LA(offset + 1) == '\n' || input.LA(offset + 1) == ' ');
+}
+
+/**
  * @brief This method adds the token for the start of the YAML stream to
  *        `tokens`.
  */
@@ -108,7 +148,8 @@ size_t Lexer::countPlainNonSpace(size_t const offset) const {
 
   size_t lookahead = offset + 1;
   while (stop.find(input.LA(lookahead)) == string::npos &&
-         input.LA(lookahead) != 0) {
+         input.LA(lookahead) != 0 && !isValue(lookahead) &&
+         !isComment(lookahead)) {
     lookahead++;
   }
 

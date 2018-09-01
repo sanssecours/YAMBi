@@ -78,6 +78,38 @@ class Lexer {
   void fetchTokens();
 
   /**
+   * @brief This method checks if the input at the specified offset starts a key
+   *        value token.
+   *
+   * @param offset This parameter specifies an offset to the current position,
+   *               where this function will look for a key value token.
+   *
+   * @retval true If the input matches a key value token
+   *         false Otherwise
+   */
+  bool isValue(size_t const offset = 1) const;
+
+  /**
+   * @brief This method checks if the current input starts a list element.
+   *
+   * @retval true If the input matches a list element token
+   *         false Otherwise
+   */
+  bool isElement() const;
+
+  /**
+   * @brief This method checks if the input at the specified offset starts a
+   *        line comment.
+   *
+   * @param offset This parameter specifies an offset to the current position,
+   *               where this function will look for a comment token.
+   *
+   * @retval true If the input matches a comment token
+   *         false Otherwise
+   */
+  bool isComment(size_t const offset) const;
+
+  /**
    * @brief This method adds the token for the start of the YAML stream to
    *        `tokens`.
    */
