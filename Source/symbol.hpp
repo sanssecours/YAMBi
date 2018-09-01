@@ -9,6 +9,7 @@ using std::string;
 using std::to_string;
 
 using yy::parser;
+using yy::position;
 
 using location_type = parser::location_type;
 using symbol_type = parser::symbol_type;
@@ -63,6 +64,13 @@ public:
       return parser::make_END(placement);
     }
   }
+
+  /**
+   * @brief This method returns the start position of this symbol.
+   *
+   * @return The start position of this symbol
+   */
+  position getStart() { return placement.begin; }
 
   /**
    * @brief This method returns a string representation of this symbol.
