@@ -11,8 +11,9 @@ using spdlog::stderr_color_mt;
 using spdlog::level::trace;
 #endif
 
-using yy::parser;
+using std::make_pair;
 
+using yy::parser;
 using location_type = parser::location_type;
 using token = parser::token;
 
