@@ -39,6 +39,8 @@ using std::shared_ptr;
 
 using std::deque;
 using std::ifstream;
+using std::pair;
+using std::unique_ptr;
 
 using symbol_type = yy::parser::symbol_type;
 using location_type = yy::parser::location_type;
@@ -56,6 +58,29 @@ class Lexer {
   /** This queue stores the list of tokens produced by the lexer. */
   deque<Symbol> tokens;
 
+  /**
+   * This counter stores the number of tokens already emitted by the lexer.
+   * The lexer needs this variable, to keep track of the insertion point of
+   * `KEY` tokens in the token queue.
+   */
+  size_t tokensEmitted = 0;
+
+  /**
+   * This boolean specifies if the lexer has already scanned the whole input or
+   * not.
+   */
+  bool done = false;
+
+  /**
+   * This pair stores a simple key candidate token (first part) and its
+   * position in the token queue (second part).
+   *
+   * Since the lexer only supports block syntax for mappings and sequences we
+   * use a single token here. If we need support for flow collections we have
+   * to store a candidate for each flow level (block context = flow level 0).
+   */
+  pair<unique_ptr<Symbol>, size_t> simpleKey;
+
 #if defined(__clang__)
   /**
    * This variable stores the logger used by the lexer to print debug messages.
@@ -71,6 +96,19 @@ class Lexer {
    *                   the function should consume.
    */
   void forward(size_t const characters);
+
+  /**
+   * @brief This method removes uninteresting characters from the input.
+   */
+  void scanToNextToken();
+
+  /**
+   * @brief This function checks if the lexer needs to scan additional tokens.
+   *
+   * @retval true If the lexer should fetch additional tokens
+   *         false Otherwise
+   */
+  bool needMoreTokens() const;
 
   /**
    * @brief This method adds new tokens to the token queue.

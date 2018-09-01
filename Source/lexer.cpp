@@ -44,10 +44,53 @@ void Lexer::forward(size_t const characters = 1) {
 }
 
 /**
+ * @brief This function checks if the lexer needs to scan additional tokens.
+ *
+ * @retval true If the lexer should fetch additional tokens
+ *         false Otherwise
+ */
+bool Lexer::needMoreTokens() const {
+  if (done) {
+    return false;
+  }
+
+  bool keyCandidateExists = simpleKey.first != nullptr;
+  return keyCandidateExists || tokens.empty();
+}
+
+/**
+ * @brief This method removes uninteresting characters from the input.
+ */
+void Lexer::scanToNextToken() {
+  LOG("Scan to next token");
+  bool found = false;
+  while (!found) {
+    while (input.LA(1) == ' ') {
+      forward();
+    }
+    LOG("Skipped whitespace");
+    if (input.LA(1) == '\n') {
+      forward();
+      LOG("Skipped newline");
+    } else {
+      found = true;
+      LOG("Found next token");
+    }
+  }
+}
+
+/**
  * @brief This method adds new tokens to the token queue.
  */
 void Lexer::fetchTokens() {
+  scanToNextToken();
   location.step();
+
+  if (input.LA(1) == 0) {
+    scanEnd();
+    return;
+  }
+
   scanPlainScalar();
 }
 
@@ -107,6 +150,8 @@ void Lexer::scanStart() {
 void Lexer::scanEnd() {
   LOG("Scan end token");
   tokens.push_back(Symbol(token::TOKEN_STREAM_END, location, "STREAM END"));
+  tokens.push_back(Symbol(token::TOKEN_END, location));
+  done = true;
 }
 
 /**
@@ -188,7 +233,6 @@ Lexer::Lexer(ifstream &stream) : input{stream} {
 
   scanStart();
   fetchTokens();
-  scanEnd();
 }
 
 /**
@@ -197,11 +241,21 @@ Lexer::Lexer(ifstream &stream) : input{stream} {
  * @return The next token the parser has not emitted yet
  */
 parser::symbol_type Lexer::nextToken() {
-  if (tokens.size() < 1) {
-    return parser::make_END(location);
+  while (needMoreTokens()) {
+    fetchTokens();
+    LOG("Tokens:");
+    for (auto token : tokens) {
+      LOGF("\t {}", token.toString());
+    }
   }
 
-  Symbol next = tokens.front();
+  // If `fetchTokens` was unable to retrieve a token (error condition), we emit
+  // an end token.
+  if (tokens.size() <= 0) {
+    tokens.push_back(Symbol(token::TOKEN_END, location));
+  }
+  Symbol token = tokens.front();
   tokens.pop_front();
-  return next.get();
+  tokensEmitted++;
+  return token.get();
 }
