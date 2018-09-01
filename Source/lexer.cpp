@@ -135,6 +135,17 @@ bool Lexer::isComment(size_t const offset) const {
 }
 
 /**
+ * @brief This method saves a token for a simple key candidate located at the
+ *        current input position.
+ */
+void Lexer::addSimpleKeyCandidate() {
+  size_t position = tokens.size() + tokensEmitted;
+  simpleKey = make_pair(
+      unique_ptr<Symbol>(new Symbol{token::TOKEN_KEY, location, "KEY"}),
+      position);
+}
+
+/**
  * @brief This method adds the token for the start of the YAML stream to
  *        `tokens`.
  */
@@ -159,6 +170,8 @@ void Lexer::scanEnd() {
  */
 void Lexer::scanPlainScalar() {
   LOG("Scan plain scalar");
+  // A plain scalar can start a simple key
+  addSimpleKeyCandidate();
 
   size_t lengthSpace = 0;
   size_t lengthNonSpace = 0;

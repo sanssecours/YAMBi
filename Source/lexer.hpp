@@ -148,6 +148,12 @@ class Lexer {
   bool isComment(size_t const offset) const;
 
   /**
+   * @brief This method saves a token for a simple key candidate located at the
+   *        current input position.
+   */
+  void addSimpleKeyCandidate();
+
+  /**
    * @brief This method adds the token for the start of the YAML stream to
    *        `tokens`.
    */
