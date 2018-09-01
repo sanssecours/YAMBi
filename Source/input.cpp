@@ -47,7 +47,7 @@ size_t Input::LA(size_t const offset) const {
  * @brief This method consumes the next character of `input`.
  */
 void Input::consume() {
-  if (position + 1 >= input.size()) {
+  if (position + 1 > input.size()) {
     throw out_of_range("Unable to consume EOF");
     return;
   }
