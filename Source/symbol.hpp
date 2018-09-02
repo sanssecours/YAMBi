@@ -59,7 +59,16 @@ public:
     switch (tokenType) {
       switchToken(STREAM_START);
       switchToken(STREAM_END);
+      switchToken(COMMENT);
       switchToken(PLAIN_SCALAR);
+      switchToken(SINGLE_QUOTED_SCALAR);
+      switchToken(DOUBLE_QUOTED_SCALAR);
+      switchToken(MAPPING_START);
+      switchToken(KEY);
+      switchToken(VALUE);
+      switchToken(SEQUENCE_START);
+      switchToken(ELEMENT);
+      switchToken(BLOCK_END);
     default:
       return parser::make_END(placement);
     }
