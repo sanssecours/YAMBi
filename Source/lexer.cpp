@@ -329,10 +329,12 @@ size_t Lexer::countPlainSpace() const {
  */
 void Lexer::scanComment() {
   LOG("Scan comment");
+  size_t start = input.index();
   while (input.LA(1) != '\n') {
     forward();
   }
-  tokens.push_back(Symbol(token::TOKEN_COMMENT, location));
+  tokens.push_back(
+      Symbol(token::TOKEN_COMMENT, location, input.getText(start)));
 }
 
 /**
