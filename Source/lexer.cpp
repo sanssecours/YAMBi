@@ -401,10 +401,11 @@ parser::symbol_type Lexer::nextToken() {
   while (needMoreTokens()) {
     fetchTokens();
   }
-  LOG("Tokens:");
+  LOG("\n\nTokens:");
   for (auto symbol : tokens) {
     LOGF("\t {}", symbol.toString());
   }
+  LOG("\n");
 
   // If `fetchTokens` was unable to retrieve a token (error condition), we emit
   // an end token.
