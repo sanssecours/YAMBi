@@ -27,15 +27,16 @@ class Driver {
       file */
   KeySet keys;
 
-public:
-  /** This variable stores the path of the YAML file the driver is parsing. */
-  string filename;
-
   /**
    * This stack stores a key for each level of the current key name below
    * parent.
    */
   stack<Key> parents;
+
+
+public:
+  /** This variable stores the path of the YAML file the driver is parsing. */
+  string filename;
 
   /**
    * This constructor creates a new driver for the given parent key.
