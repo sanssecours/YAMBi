@@ -67,8 +67,8 @@ comments: COMMENT
 
 value : scalar { driver.exitValue($1); } ;
 scalar : PLAIN_SCALAR { $$ = $1; }
-       | SINGLE_QUOTED_SCALAR
-       | DOUBLE_QUOTED_SCALAR
+       | SINGLE_QUOTED_SCALAR { $$ = $1; }
+       | DOUBLE_QUOTED_SCALAR { $$ = $1; }
        ;
 
 map : MAPPING_START pairs BLOCK_END ;
