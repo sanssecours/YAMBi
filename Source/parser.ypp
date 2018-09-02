@@ -46,12 +46,15 @@ class Lexer;
 
 %type <std::string> scalar
 
+// This boolean specifies if the rule matched a child or not
+%type <bool> child_comments_empty
+
 %%
 
 yaml : STREAM_START child_comments_empty STREAM_END ;
-child_comments_empty : child
-                     | comments
-                     | %empty
+child_comments_empty : child    { $$ = true; }
+                     | comments { $$ = false; }
+                     | %empty   { $$ = false; }
                      ;
 
 child : comments_empty node comments_empty;
