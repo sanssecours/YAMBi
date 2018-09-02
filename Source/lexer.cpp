@@ -400,10 +400,10 @@ Lexer::Lexer(ifstream &stream) : input{stream} {
 parser::symbol_type Lexer::nextToken() {
   while (needMoreTokens()) {
     fetchTokens();
-    LOG("Tokens:");
-    for (auto symbol : tokens) {
-      LOGF("\t {}", symbol.toString());
-    }
+  }
+  LOG("Tokens:");
+  for (auto symbol : tokens) {
+    LOGF("\t {}", symbol.toString());
   }
 
   // If `fetchTokens` was unable to retrieve a token (error condition), we emit
