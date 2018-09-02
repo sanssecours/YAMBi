@@ -93,6 +93,15 @@ public:
    * @param text This variable contains the text of the key.
    */
   void exitKey(string const &text);
+
+  /**
+   * @brief This function will be called after the parser exits a key-value
+   *        pair.
+   *
+   * @param matchedValue This variable specifies if the pair contains a value
+   *                     or not.
+   */
+  void exitPair(bool const matchedValue);
 };
 
 #endif // DRIVER_HPP

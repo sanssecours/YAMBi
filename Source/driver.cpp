@@ -124,3 +124,20 @@ void Driver::exitKey(string const &text) {
   child.addBaseName(scalarToText(text));
   parents.push(child);
 }
+
+/**
+ * @brief This function will be called after the parser exits a key-value
+ *        pair.
+ *
+ * @param matchedValue This variable specifies if the pair contains a value
+ *                     or not.
+ */
+void Driver::exitPair(bool const matchedValue) {
+  if (!matchedValue) {
+    // Add key with empty value
+    keys.append(parents.top());
+  }
+  // Returning from a mapping such as `part: …` means that we need need to
+  // remove the key for `part` from the stack.
+  parents.pop();
+}
