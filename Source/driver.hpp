@@ -86,6 +86,13 @@ public:
    * @param text This variable contains the text stored in the value.
    */
   void exitValue(string const &text);
+
+  /**
+   * @brief This function will be called after the parser found a key.
+   *
+   * @param text This variable contains the text of the key.
+   */
+  void exitKey(string const &text);
 };
 
 #endif // DRIVER_HPP

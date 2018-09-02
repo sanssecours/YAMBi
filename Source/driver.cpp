@@ -17,6 +17,30 @@ using yy::parser;
 
 #define DEBUG_LEVEL 1
 
+// -- Functions ----------------------------------------------------------------
+
+namespace {
+
+/**
+ * @brief This function converts a YAML scalar to a string.
+ *
+ * @param text This string contains a YAML scalar (including quote
+ *             characters).
+ *
+ * @return A string without leading and trailing quote characters
+ */
+string scalarToText(string const &text) {
+  if (text.length() == 0) {
+    return text;
+  }
+  if (*(text.begin()) == '"' || *(text.begin()) == '\'') {
+    return text.substr(1, text.length() - 2);
+  }
+  return text;
+}
+
+} // namespace
+
 // -- Class --------------------------------------------------------------------
 
 /**
@@ -86,4 +110,17 @@ void Driver::exitValue(string const &text) {
   Key key = parents.top();
   key.setString(text);
   keys.append(key);
+}
+
+/**
+ * @brief This function will be called after the parser found a key.
+ *
+ * @param text This variable contains the text of the key.
+ */
+void Driver::exitKey(string const &text) {
+  // Entering a mapping such as `part: …` means that we need to add `part` to
+  // the key name
+  Key child{parents.top().getName(), KEY_END};
+  child.addBaseName(scalarToText(text));
+  parents.push(child);
 }

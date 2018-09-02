@@ -76,7 +76,7 @@ pairs : pair
       | pairs pair
       ;
 pair : KEY key VALUE child_comments_empty ;
-key : scalar ;
+key : scalar { driver.exitKey($1); } ;
 
 sequence : SEQUENCE_START elements BLOCK_END ;
 elements : element
