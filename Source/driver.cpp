@@ -22,6 +22,23 @@ using yy::parser;
 namespace {
 
 /**
+ * @brief This function converts a given number to an array base name.
+ *
+ * @param index This number specifies the index of the array entry.
+ *
+ * @return A string representing the given indices as Elektra array name.
+ */
+string indexToArrayBaseName(uintmax_t const index) {
+  size_t digits = 1;
+
+  for (uintmax_t value = index; value > 9; digits++) {
+    value /= 10;
+  }
+
+  return "#" + string(digits - 1, '_') + to_string(index);
+}
+
+/**
  * @brief This function converts a YAML scalar to a string.
  *
  * @param text This string contains a YAML scalar (including quote
@@ -140,4 +157,49 @@ void Driver::exitPair(bool const matchedValue) {
   // Returning from a mapping such as `part: …` means that we need need to
   // remove the key for `part` from the stack.
   parents.pop();
+}
+
+/**
+ * @brief This function will be called after the parser enters a sequence.
+ */
+void Driver::enterSequence() {
+  indices.push(0);
+  parents.top().setMeta("array", ""); // We start with an empty array
+}
+
+/**
+ * @brief This function will be called after the parser exits a sequence.
+ */
+void Driver::exitSequence() {
+  // We add the parent key of all array elements after we leave the sequence
+  keys.append(parents.top());
+  indices.pop();
+}
+
+/**
+ * @brief This function will be called after the parser recognizes an element
+ *        of a sequence.
+ */
+void Driver::enterElement() {
+
+  Key key{parents.top().getName(), KEY_END};
+  key.addBaseName(indexToArrayBaseName(indices.top()));
+
+  uintmax_t index = indices.top();
+  indices.pop();
+  if (index < UINTMAX_MAX) {
+    index++;
+  }
+  indices.push(index);
+
+  parents.top().setMeta("array", key.getBaseName());
+  parents.push(key);
+}
+
+/**
+ * @brief This function will be called after the parser read an element of a
+ *        sequence.
+ */
+void Driver::exitElement() {
+  parents.pop(); // Remove the key for the current array entry
 }

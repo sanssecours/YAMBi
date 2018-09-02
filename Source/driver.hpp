@@ -33,6 +33,10 @@ class Driver {
    */
   stack<Key> parents;
 
+  /**
+   * This stack stores indices for the next array elements.
+   */
+  stack<uintmax_t> indices;
 
 public:
   /** This variable stores the path of the YAML file the driver is parsing. */
@@ -103,6 +107,28 @@ public:
    *                     or not.
    */
   void exitPair(bool const matchedValue);
+
+  /**
+   * @brief This function will be called after the parser enters a sequence.
+   */
+  void enterSequence();
+
+  /**
+   * @brief This function will be called after the parser exits a sequence.
+   */
+  void exitSequence();
+
+  /**
+   * @brief This function will be called after the parser recognizes an element
+   *        of a sequence.
+   */
+  void enterElement();
+
+  /**
+   * @brief This function will be called after the parser read an element of a
+   *        sequence.
+   */
+  void exitElement();
 };
 
 #endif // DRIVER_HPP

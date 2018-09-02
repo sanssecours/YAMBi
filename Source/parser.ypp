@@ -81,10 +81,13 @@ pairs : pair
 pair : KEY key VALUE child_comments_empty { driver.exitPair($4); };
 key : scalar { driver.exitKey($1); } ;
 
-sequence : SEQUENCE_START elements BLOCK_END ;
+sequence : { driver.enterSequence(); }
+           SEQUENCE_START elements BLOCK_END
+           { driver.exitSequence(); }
+           ;
 elements : element
          | elements element ;
-element : ELEMENT child ;
+element : { driver.enterElement(); } ELEMENT child { driver.exitElement(); };
 
 %%
 
