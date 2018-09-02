@@ -57,6 +57,7 @@ child_comments_empty : child
 child : comments_empty node comments_empty;
 node : value
      | map
+     | sequence
      ;
 
 comments_empty : comments | %empty ;
@@ -76,6 +77,11 @@ pairs : pair
       ;
 pair : KEY key VALUE child_comments_empty ;
 key : scalar ;
+
+sequence : SEQUENCE_START elements BLOCK_END ;
+elements : element
+         | elements element ;
+element : ELEMENT child ;
 
 %%
 
