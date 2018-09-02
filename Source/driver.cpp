@@ -125,7 +125,7 @@ void Driver::error(const location_type &location, const string &message) {
  */
 void Driver::exitValue(string const &text) {
   Key key = parents.top();
-  key.setString(text);
+  key.setString(scalarToText(text));
   keys.append(key);
 }
 
