@@ -1,3 +1,11 @@
+/**
+ * @file
+ *
+ * @brief This file contains a lexer that scans YAML data.
+ *
+ * @copyright BSD License (see LICENSE.md or https://www.libelektra.org)
+ */
+
 #ifndef LEXER_HPP
 #define LEXER_HPP
 
