@@ -63,7 +63,7 @@ public:
    *
    * @return A symbol representing this object
    */
-  symbol_type get() {
+  symbol_type get() const {
     switch (tokenType) {
       switchToken(STREAM_START);
       switchToken(STREAM_END);
@@ -87,14 +87,14 @@ public:
    *
    * @return The start position of this symbol
    */
-  position getStart() { return placement.begin; }
+  position getStart() const { return placement.begin; }
 
   /**
    * @brief This method returns a string representation of this symbol.
    *
    * @return A string representing this symbol
    */
-  string toString() {
+  string toString() const {
     return "<" + to_string(placement.begin.line) + ":" +
            to_string(placement.begin.column) + "," +
            to_string(placement.end.line) + ":" +
