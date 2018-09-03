@@ -352,14 +352,14 @@ void Lexer::scanValue() {
   if (simpleKey.first == nullptr) {
     throw runtime_error("Unable to locate key for value");
   }
-  tokens.insert(tokens.begin() + simpleKey.second - tokensEmitted,
-                *simpleKey.first);
+  size_t offset = simpleKey.second - tokensEmitted;
+  tokens.insert(tokens.begin() + offset, *simpleKey.first);
   auto start = simpleKey.first->getStart();
   simpleKey.first = nullptr; // Remove key candidate
   if (addIndentation(start.column)) {
     location.begin = start;
-    tokens.push_front(
-        Symbol(token::TOKEN_MAPPING_START, location, "MAPPING START"));
+    tokens.insert(tokens.begin() + offset, Symbol(token::TOKEN_MAPPING_START,
+                                                  location, "MAPPING START"));
   }
 }
 
