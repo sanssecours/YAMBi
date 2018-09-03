@@ -1,3 +1,11 @@
+/**
+ * @file
+ *
+ * @brief This file contains a wrapper for Bison’s `symbol_type`.
+ *
+ * @copyright BSD License (see LICENSE.md or https://www.libelektra.org)
+ */
+
 #ifndef SYMBOL_HPP
 #define SYMBOL_HPP
 
