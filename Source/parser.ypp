@@ -1,3 +1,11 @@
+/**
+ * @file
+ *
+ * @brief This file contains a Bison parser for YAML data.
+ *
+ * @copyright BSD License (see LICENSE.md or https://www.libelektra.org)
+ */
+
 %skeleton "lalr1.cc"
 %defines
 %define api.token.constructor
