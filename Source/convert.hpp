@@ -1,3 +1,11 @@
+/**
+ * @file
+ *
+ * @brief This file contains a function to convert a YAML file to a key set.
+ *
+ * @copyright BSD License (see LICENSE.md or https://www.libelektra.org)
+ */
+
 #ifndef CONVERTER_HPP
 #define CONVERTER_HPP
 
