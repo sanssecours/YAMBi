@@ -1,3 +1,12 @@
+/**
+ * @file
+ *
+ * @brief This file specifies auxiliary functions and data used by a Bison
+ *        parser to convert YAML data to a key set.
+ *
+ * @copyright BSD License (see LICENSE.md or https://www.libelektra.org)
+ */
+
 // -- Imports ------------------------------------------------------------------
 
 #include <cerrno>
