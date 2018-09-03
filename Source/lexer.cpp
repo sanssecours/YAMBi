@@ -403,11 +403,12 @@ parser::symbol_type Lexer::nextToken() {
   while (needMoreTokens()) {
     fetchTokens();
   }
-  LOG("\n\nTokens:");
+  string output;
+  output += "\n\nTokens:\n";
   for (auto symbol : tokens) {
-    LOGF("\t {}", symbol.toString());
+    output += "\t" + symbol.toString() + "\n";
   }
-  LOG("\n");
+  LOG(output);
 
   // If `fetchTokens` was unable to retrieve a token (error condition), we emit
   // an end token.
