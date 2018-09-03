@@ -110,7 +110,7 @@ int Driver::parse(const string &filepath) {
  * @return A key set representing the YAML data produced by the last call of
  *         the method `parse`
  */
-KeySet Driver::getKeySet() { return keys; }
+KeySet Driver::getKeySet() const { return keys; }
 
 /**
  * @brief This function will be called by the Bison parser to indicate an error.

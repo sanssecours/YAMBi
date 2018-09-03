@@ -78,7 +78,7 @@ public:
    * @return A key set representing the YAML data produced by the last call of
    *         the method `parse`
    */
-  KeySet getKeySet();
+  KeySet getKeySet() const;
 
   /**
    * @brief This function will be called by the Bison parser to indicate an
