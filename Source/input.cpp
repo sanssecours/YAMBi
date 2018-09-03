@@ -1,3 +1,11 @@
+/**
+ * @file
+ *
+ * @brief This file contains a class that represents textual input.
+ *
+ * @copyright BSD License (see LICENSE.md or https://www.libelektra.org)
+ */
+
 // -- Imports ------------------------------------------------------------------
 
 #include <codecvt>
