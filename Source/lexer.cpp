@@ -107,6 +107,8 @@ void Lexer::scanToNextToken() {
 void Lexer::fetchTokens() {
   scanToNextToken();
   location.step();
+  LOGF("Fetch new token at location: {}:{}", location.begin.line,
+       location.begin.column);
 
   if (input.LA(1) == 0) {
     scanEnd();
