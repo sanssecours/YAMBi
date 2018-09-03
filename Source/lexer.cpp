@@ -65,7 +65,7 @@ void Lexer::forward(size_t const characters = 1) {
  *         false Otherwise
  */
 bool Lexer::addIndentation(size_t const lineIndex) {
-  if (static_cast<long long>(lineIndex) > indents.top()) {
+  if (lineIndex > indents.top()) {
     LOGF("Add indentation {}", lineIndex);
     indents.push(lineIndex);
     return true;
@@ -201,7 +201,7 @@ void Lexer::addSimpleKeyCandidate() {
  *                  of spaces) for which this method should add block end
  *                  tokens.
  */
-void Lexer::addBlockEnd(long long const lineIndex) {
+void Lexer::addBlockEnd(size_t const lineIndex) {
   while (lineIndex < indents.top()) {
     LOG("Add block end");
     tokens.push_back(Symbol(token::TOKEN_BLOCK_END, location, "BLOCK END"));
@@ -224,7 +224,7 @@ void Lexer::scanStart() {
  */
 void Lexer::scanEnd() {
   LOG("Scan end token");
-  addBlockEnd(-1);
+  addBlockEnd(0);
   tokens.push_back(Symbol(token::TOKEN_STREAM_END, location, "STREAM END"));
   tokens.push_back(Symbol(token::TOKEN_END, location));
   done = true;

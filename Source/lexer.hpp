@@ -80,7 +80,7 @@ class Lexer {
    * This stack stores the indentation (in number of characters) for each
    * block collection.
    */
-  stack<long long> indents{deque<long long>{-1}};
+  stack<size_t> indents{deque<size_t>{0}};
 
   /**
    * This boolean specifies if the lexer has already scanned the whole input or
@@ -190,7 +190,7 @@ class Lexer {
    *                  of spaces) for which this method should add block end
    *                  tokens.
    */
-  void addBlockEnd(long long const lineIndex);
+  void addBlockEnd(size_t const lineIndex);
 
   /**
    * @brief This method adds the token for the start of the YAML stream to
