@@ -107,6 +107,7 @@ void Lexer::scanToNextToken() {
 void Lexer::fetchTokens() {
   scanToNextToken();
   location.step();
+  addBlockEnd(location.begin.column);
   LOGF("Fetch new token at location: {}:{}", location.begin.line,
        location.begin.column);
 
@@ -215,6 +216,7 @@ void Lexer::scanStart() {
  */
 void Lexer::scanEnd() {
   LOG("Scan end token");
+  addBlockEnd(-1);
   tokens.push_back(Symbol(token::TOKEN_STREAM_END, location, "STREAM END"));
   tokens.push_back(Symbol(token::TOKEN_END, location));
   done = true;
