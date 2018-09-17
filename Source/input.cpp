@@ -80,8 +80,7 @@ size_t Input::index() const { return position; }
  *         one character before the current position in the input
  */
 string Input::getText(size_t const start) const {
-  string text =
-      wstring_convert<std::codecvt_utf8<char32_t>, char32_t>{}.to_bytes(
-          input.substr(start, position - start));
+  string text = wstring_convert<codecvt_utf8<char32_t>, char32_t>{}.to_bytes(
+      input.substr(start, position - start));
   return text;
 }
