@@ -35,6 +35,7 @@ before_install:
       brew install spdlog
       brew install elektra
       brew install ninja
+      brew cask install oclint
     fi
 
 before_script:
